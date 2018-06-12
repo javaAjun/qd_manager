@@ -41,9 +41,17 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-ws</artifactId>
 </dependency>
+<!-- <dependency> -->
+<!--     <groupId>wsdl4j</groupId> -->
+<!--     <artifactId>wsdl4j</artifactId> -->
+<!-- </dependency> -->
+
 <dependency>
-    <groupId>wsdl4j</groupId>
-    <artifactId>wsdl4j</artifactId>
+
+   <groupId>dom4j</groupId>
+
+   <artifactId>dom4j</artifactId>
+   <version>1.6.1</version>
 </dependency>
     </dependencies>
     
