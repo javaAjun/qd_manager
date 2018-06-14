@@ -1,35 +1,35 @@
 package com.palmble.qd_manager.bean;
 
 public class BasicNode extends Node{
-	private String Main;
-	private String TransID;
-	private String OrderID;
-	private String TransType;
-	private String TransDate;
-	private String TransTime;
-	private String PosCode;
-	private String SourceID;
-	private String SurgeryName;
-	private String SellFormType;
-	private String ProductCode;
-	private String EffectDate;
-	private String EffectTime;
-	private String ExpiryDate;
-	private String ExpiryTime;
-	private String RelationApp;
-	private String RelationBen;
-	private String SmsStyle;
-	private String NeedSMS;
-	private String RiskCheckResult;
-	private String DownLoadLink;
-	private String Email;
-	private String TicketNo;
-	private String DepartureCity;
-	private String DepartureDate;
-	private String DepartureTime;
-	private String ArrivalCity;
-	private String ArrivalDate;
-	private String ArrivalTime;
+	private String Main;//基本交易节点
+	private String TransID;//交易流水号
+	private String OrderID;//订单号
+	private String TransType;//交易类型
+	private String TransDate;//出保日期YYYYMMDD
+	private String TransTime;//出保时间HHMMSS
+	private String PosCode;//POS机编号
+	private String SourceID;//出单来源
+	private String SurgeryName;//手术名称
+	private String SellFormType;//险种类型
+	private String ProductCode;//产品代码
+	private String EffectDate;//生效日期YYYYMMDD
+	private String EffectTime;//生效时间HHMMSS
+	private String ExpiryDate;//失效日期YYYYMMDD
+	private String ExpiryTime;//失效时间HHMMSS
+	private String RelationApp;//投保人与被保人关系
+	private String RelationBen;//受益人与被保人关系
+	private String SmsStyle;//短信模板
+	private String NeedSMS;//是否发送短信
+	private String RiskCheckResult;//风险校验超值返回结果
+	private String DownLoadLink;//电子保单下载链接
+	private String Email;//邮箱地址
+	private String TicketNo;//票号 火车票/航班号等
+	private String DepartureCity;//出发城市
+	private String DepartureDate;//出发日期YYYYMMDD
+	private String DepartureTime;//出发时间HHMMSS
+	private String ArrivalCity;//到达城市
+	private String ArrivalDate;//到达日期
+	private String ArrivalTime;//到达时间
 	private String OpeartorName;
 	private String SalesCode;
 	private String SalesName;

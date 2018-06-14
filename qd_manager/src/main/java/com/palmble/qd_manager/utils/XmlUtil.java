@@ -11,6 +11,7 @@ import org.dom4j.Element;
 
 import com.palmble.qd_manager.bean.Node;
 
+
 public class XmlUtil {
 	public static Object getObject(Document document,Class<?> clazz) {
 		Object obj=null;

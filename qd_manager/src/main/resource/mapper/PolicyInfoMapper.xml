@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="andy.dao.PolicyInfoMapper" >
+  <resultMap id="BaseResultMap" type="andy.model.PolicyInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="trans_id" property="transId" jdbcType="VARCHAR" />
+    <result column="trans_date" property="transDate" jdbcType="VARCHAR" />
+    <result column="trans_time" property="transTime" jdbcType="VARCHAR" />
+    <result column="trans_type" property="transType" jdbcType="INTEGER" />
+    <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="pos_code" property="posCode" jdbcType="VARCHAR" />
+    <result column="sell_form_type" property="sellFormType" jdbcType="VARCHAR" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="effect_date" property="effectDate" jdbcType="VARCHAR" />
+    <result column="effect_time" property="effectTime" jdbcType="VARCHAR" />
+    <result column="expiry_date" property="expiryDate" jdbcType="VARCHAR" />
+    <result column="expiry_time" property="expiryTime" jdbcType="VARCHAR" />
+    <result column="need_sms" property="needSms" jdbcType="VARCHAR" />
+    <result column="ticket_no" property="ticketNo" jdbcType="VARCHAR" />
+    <result column="departure_city" property="departureCity" jdbcType="VARCHAR" />
+    <result column="departure_date" property="departureDate" jdbcType="VARCHAR" />
+    <result column="departure_time" property="departureTime" jdbcType="VARCHAR" />
+    <result column="arrival_city" property="arrivalCity" jdbcType="VARCHAR" />
+    <result column="arrival_date" property="arrivalDate" jdbcType="VARCHAR" />
+    <result column="arrival_time" property="arrivalTime" jdbcType="VARCHAR" />
+    <result column="relation_app" property="relationApp" jdbcType="VARCHAR" />
+    <result column="applicant_name" property="applicantName" jdbcType="VARCHAR" />
+    <result column="applicant_type" property="applicantType" jdbcType="VARCHAR" />
+    <result column="applicant_num" property="applicantNum" jdbcType="VARCHAR" />
+    <result column="applicant_sex" property="applicantSex" jdbcType="INTEGER" />
+    <result column="app_birth_date" property="appBirthDate" jdbcType="VARCHAR" />
+    <result column="applicant_address" property="applicantAddress" jdbcType="VARCHAR" />
+    <result column="applicant_phone" property="applicantPhone" jdbcType="VARCHAR" />
+    <result column="insured_name" property="insuredName" jdbcType="VARCHAR" />
+    <result column="insured_type" property="insuredType" jdbcType="VARCHAR" />
+    <result column="insured_num" property="insuredNum" jdbcType="VARCHAR" />
+    <result column="insured_sex" property="insuredSex" jdbcType="INTEGER" />
+    <result column="insured_birth_date" property="insuredBirthDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, trans_id, trans_date, trans_time, trans_type, source_id, order_id, pos_code, 
+    sell_form_type, product_code, effect_date, effect_time, expiry_date, expiry_time, 
+    need_sms, ticket_no, departure_city, departure_date, departure_time, arrival_city, 
+    arrival_date, arrival_time, relation_app, applicant_name, applicant_type, applicant_num, 
+    applicant_sex, app_birth_date, applicant_address, applicant_phone, insured_name, 
+    insured_type, insured_num, insured_sex, insured_birth_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from policy_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from policy_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="andy.model.PolicyInfo" >
+    insert into policy_info (id, trans_id, trans_date, 
+      trans_time, trans_type, source_id, 
+      order_id, pos_code, sell_form_type, 
+      product_code, effect_date, effect_time, 
+      expiry_date, expiry_time, need_sms, 
+      ticket_no, departure_city, departure_date, 
+      departure_time, arrival_city, arrival_date, 
+      arrival_time, relation_app, applicant_name, 
+      applicant_type, applicant_num, applicant_sex, 
+      app_birth_date, applicant_address, applicant_phone, 
+      insured_name, insured_type, insured_num, 
+      insured_sex, insured_birth_date)
+    values (#{id,jdbcType=BIGINT}, #{transId,jdbcType=VARCHAR}, #{transDate,jdbcType=VARCHAR}, 
+      #{transTime,jdbcType=VARCHAR}, #{transType,jdbcType=INTEGER}, #{sourceId,jdbcType=VARCHAR}, 
+      #{orderId,jdbcType=VARCHAR}, #{posCode,jdbcType=VARCHAR}, #{sellFormType,jdbcType=VARCHAR}, 
+      #{productCode,jdbcType=VARCHAR}, #{effectDate,jdbcType=VARCHAR}, #{effectTime,jdbcType=VARCHAR}, 
+      #{expiryDate,jdbcType=VARCHAR}, #{expiryTime,jdbcType=VARCHAR}, #{needSms,jdbcType=VARCHAR}, 
+      #{ticketNo,jdbcType=VARCHAR}, #{departureCity,jdbcType=VARCHAR}, #{departureDate,jdbcType=VARCHAR}, 
+      #{departureTime,jdbcType=VARCHAR}, #{arrivalCity,jdbcType=VARCHAR}, #{arrivalDate,jdbcType=VARCHAR}, 
+      #{arrivalTime,jdbcType=VARCHAR}, #{relationApp,jdbcType=VARCHAR}, #{applicantName,jdbcType=VARCHAR}, 
+      #{applicantType,jdbcType=VARCHAR}, #{applicantNum,jdbcType=VARCHAR}, #{applicantSex,jdbcType=INTEGER}, 
+      #{appBirthDate,jdbcType=VARCHAR}, #{applicantAddress,jdbcType=VARCHAR}, #{applicantPhone,jdbcType=VARCHAR}, 
+      #{insuredName,jdbcType=VARCHAR}, #{insuredType,jdbcType=VARCHAR}, #{insuredNum,jdbcType=VARCHAR}, 
+      #{insuredSex,jdbcType=INTEGER}, #{insuredBirthDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="andy.model.PolicyInfo" >
+    insert into policy_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="transId != null" >
+        trans_id,
+      </if>
+      <if test="transDate != null" >
+        trans_date,
+      </if>
+      <if test="transTime != null" >
+        trans_time,
+      </if>
+      <if test="transType != null" >
+        trans_type,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="posCode != null" >
+        pos_code,
+      </if>
+      <if test="sellFormType != null" >
+        sell_form_type,
+      </if>
+      <if test="productCode != null" >
+        product_code,
+      </if>
+      <if test="effectDate != null" >
+        effect_date,
+      </if>
+      <if test="effectTime != null" >
+        effect_time,
+      </if>
+      <if test="expiryDate != null" >
+        expiry_date,
+      </if>
+      <if test="expiryTime != null" >
+        expiry_time,
+      </if>
+      <if test="needSms != null" >
+        need_sms,
+      </if>
+      <if test="ticketNo != null" >
+        ticket_no,
+      </if>
+      <if test="departureCity != null" >
+        departure_city,
+      </if>
+      <if test="departureDate != null" >
+        departure_date,
+      </if>
+      <if test="departureTime != null" >
+        departure_time,
+      </if>
+      <if test="arrivalCity != null" >
+        arrival_city,
+      </if>
+      <if test="arrivalDate != null" >
+        arrival_date,
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time,
+      </if>
+      <if test="relationApp != null" >
+        relation_app,
+      </if>
+      <if test="applicantName != null" >
+        applicant_name,
+      </if>
+      <if test="applicantType != null" >
+        applicant_type,
+      </if>
+      <if test="applicantNum != null" >
+        applicant_num,
+      </if>
+      <if test="applicantSex != null" >
+        applicant_sex,
+      </if>
+      <if test="appBirthDate != null" >
+        app_birth_date,
+      </if>
+      <if test="applicantAddress != null" >
+        applicant_address,
+      </if>
+      <if test="applicantPhone != null" >
+        applicant_phone,
+      </if>
+      <if test="insuredName != null" >
+        insured_name,
+      </if>
+      <if test="insuredType != null" >
+        insured_type,
+      </if>
+      <if test="insuredNum != null" >
+        insured_num,
+      </if>
+      <if test="insuredSex != null" >
+        insured_sex,
+      </if>
+      <if test="insuredBirthDate != null" >
+        insured_birth_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="transId != null" >
+        #{transId,jdbcType=VARCHAR},
+      </if>
+      <if test="transDate != null" >
+        #{transDate,jdbcType=VARCHAR},
+      </if>
+      <if test="transTime != null" >
+        #{transTime,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="posCode != null" >
+        #{posCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellFormType != null" >
+        #{sellFormType,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="effectDate != null" >
+        #{effectDate,jdbcType=VARCHAR},
+      </if>
+      <if test="effectTime != null" >
+        #{effectTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryDate != null" >
+        #{expiryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryTime != null" >
+        #{expiryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="needSms != null" >
+        #{needSms,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketNo != null" >
+        #{ticketNo,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCity != null" >
+        #{departureCity,jdbcType=VARCHAR},
+      </if>
+      <if test="departureDate != null" >
+        #{departureDate,jdbcType=VARCHAR},
+      </if>
+      <if test="departureTime != null" >
+        #{departureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalCity != null" >
+        #{arrivalCity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalDate != null" >
+        #{arrivalDate,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="relationApp != null" >
+        #{relationApp,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantName != null" >
+        #{applicantName,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantType != null" >
+        #{applicantType,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantNum != null" >
+        #{applicantNum,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantSex != null" >
+        #{applicantSex,jdbcType=INTEGER},
+      </if>
+      <if test="appBirthDate != null" >
+        #{appBirthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantAddress != null" >
+        #{applicantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantPhone != null" >
+        #{applicantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredName != null" >
+        #{insuredName,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredType != null" >
+        #{insuredType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredNum != null" >
+        #{insuredNum,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredSex != null" >
+        #{insuredSex,jdbcType=INTEGER},
+      </if>
+      <if test="insuredBirthDate != null" >
+        #{insuredBirthDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="andy.model.PolicyInfo" >
+    update policy_info
+    <set >
+      <if test="transId != null" >
+        trans_id = #{transId,jdbcType=VARCHAR},
+      </if>
+      <if test="transDate != null" >
+        trans_date = #{transDate,jdbcType=VARCHAR},
+      </if>
+      <if test="transTime != null" >
+        trans_time = #{transTime,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        trans_type = #{transType,jdbcType=INTEGER},
+      </if>
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="posCode != null" >
+        pos_code = #{posCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellFormType != null" >
+        sell_form_type = #{sellFormType,jdbcType=VARCHAR},
+      </if>
+      <if test="productCode != null" >
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="effectDate != null" >
+        effect_date = #{effectDate,jdbcType=VARCHAR},
+      </if>
+      <if test="effectTime != null" >
+        effect_time = #{effectTime,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryDate != null" >
+        expiry_date = #{expiryDate,jdbcType=VARCHAR},
+      </if>
+      <if test="expiryTime != null" >
+        expiry_time = #{expiryTime,jdbcType=VARCHAR},
+      </if>
+      <if test="needSms != null" >
+        need_sms = #{needSms,jdbcType=VARCHAR},
+      </if>
+      <if test="ticketNo != null" >
+        ticket_no = #{ticketNo,jdbcType=VARCHAR},
+      </if>
+      <if test="departureCity != null" >
+        departure_city = #{departureCity,jdbcType=VARCHAR},
+      </if>
+      <if test="departureDate != null" >
+        departure_date = #{departureDate,jdbcType=VARCHAR},
+      </if>
+      <if test="departureTime != null" >
+        departure_time = #{departureTime,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalCity != null" >
+        arrival_city = #{arrivalCity,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalDate != null" >
+        arrival_date = #{arrivalDate,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalTime != null" >
+        arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="relationApp != null" >
+        relation_app = #{relationApp,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantName != null" >
+        applicant_name = #{applicantName,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantType != null" >
+        applicant_type = #{applicantType,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantNum != null" >
+        applicant_num = #{applicantNum,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantSex != null" >
+        applicant_sex = #{applicantSex,jdbcType=INTEGER},
+      </if>
+      <if test="appBirthDate != null" >
+        app_birth_date = #{appBirthDate,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantAddress != null" >
+        applicant_address = #{applicantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantPhone != null" >
+        applicant_phone = #{applicantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredName != null" >
+        insured_name = #{insuredName,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredType != null" >
+        insured_type = #{insuredType,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredNum != null" >
+        insured_num = #{insuredNum,jdbcType=VARCHAR},
+      </if>
+      <if test="insuredSex != null" >
+        insured_sex = #{insuredSex,jdbcType=INTEGER},
+      </if>
+      <if test="insuredBirthDate != null" >
+        insured_birth_date = #{insuredBirthDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="andy.model.PolicyInfo" >
+    update policy_info
+    set trans_id = #{transId,jdbcType=VARCHAR},
+      trans_date = #{transDate,jdbcType=VARCHAR},
+      trans_time = #{transTime,jdbcType=VARCHAR},
+      trans_type = #{transType,jdbcType=INTEGER},
+      source_id = #{sourceId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      pos_code = #{posCode,jdbcType=VARCHAR},
+      sell_form_type = #{sellFormType,jdbcType=VARCHAR},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      effect_date = #{effectDate,jdbcType=VARCHAR},
+      effect_time = #{effectTime,jdbcType=VARCHAR},
+      expiry_date = #{expiryDate,jdbcType=VARCHAR},
+      expiry_time = #{expiryTime,jdbcType=VARCHAR},
+      need_sms = #{needSms,jdbcType=VARCHAR},
+      ticket_no = #{ticketNo,jdbcType=VARCHAR},
+      departure_city = #{departureCity,jdbcType=VARCHAR},
+      departure_date = #{departureDate,jdbcType=VARCHAR},
+      departure_time = #{departureTime,jdbcType=VARCHAR},
+      arrival_city = #{arrivalCity,jdbcType=VARCHAR},
+      arrival_date = #{arrivalDate,jdbcType=VARCHAR},
+      arrival_time = #{arrivalTime,jdbcType=VARCHAR},
+      relation_app = #{relationApp,jdbcType=VARCHAR},
+      applicant_name = #{applicantName,jdbcType=VARCHAR},
+      applicant_type = #{applicantType,jdbcType=VARCHAR},
+      applicant_num = #{applicantNum,jdbcType=VARCHAR},
+      applicant_sex = #{applicantSex,jdbcType=INTEGER},
+      app_birth_date = #{appBirthDate,jdbcType=VARCHAR},
+      applicant_address = #{applicantAddress,jdbcType=VARCHAR},
+      applicant_phone = #{applicantPhone,jdbcType=VARCHAR},
+      insured_name = #{insuredName,jdbcType=VARCHAR},
+      insured_type = #{insuredType,jdbcType=VARCHAR},
+      insured_num = #{insuredNum,jdbcType=VARCHAR},
+      insured_sex = #{insuredSex,jdbcType=INTEGER},
+      insured_birth_date = #{insuredBirthDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
