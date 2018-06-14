@@ -1,6 +1,6 @@
 package com.palmble.qd_manager.bean;
 
-public class InsuredNode {
+public class InsuredNode extends Node{
 	private String Insured;
 	private String InsuredName;
 	private String InsuredType;
