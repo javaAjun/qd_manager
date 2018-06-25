@@ -5,6 +5,21 @@ public class SaveParamsBean {
 	private BasicNode Main;
 	private InsuredNode Insured;
 	private ApplicantNode Applicant;
+	private BeneficiaryNode Beneficiary;
+	private Node node;
+	
+	public Node getNode() {
+		return node;
+	}
+	public void setNode(Node node) {
+		this.node = node;
+	}
+	public BeneficiaryNode getBeneficiary() {
+		return Beneficiary;
+	}
+	public void setBeneficiary(BeneficiaryNode beneficiary) {
+		Beneficiary = beneficiary;
+	}
 	public String getApplyRequest() {
 		return ApplyRequest;
 	}
