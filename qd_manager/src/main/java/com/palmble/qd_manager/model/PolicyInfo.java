@@ -5,79 +5,91 @@ package com.palmble.qd_manager.model;
 * <p>Title: 保单信息实体</p>  
 * <p>Description:pamable </p>  
 * @author WangYanke  
-* @date 2018年6月13日 
+* @date 2018年6月25日 
 * @version 1.0
  */
 public class PolicyInfo {
-    private Long id;//自增编号
-    
-    private String transId;//流水号
+    private Long id;//编号
 
-    private String transDate;//交易日期YYYYMMDD
+    private String transId;
 
-    private String transTime;//交易时间HHMMSS
+    private String transDate;
 
-    private Integer transType;//如果有且传值01:试算，否则为出单
+    private String transTime;
 
-    private String sourceId;//来源编号
+    private Integer transType;
 
-    private String orderId;//订单编号
+    private String sourceId;
 
-    private String posCode;//pos机编号
+    private String orderId;
 
-    private String sellFormType;//单证类型
+    private String posCode;
 
-    private String productCode;//产品编号
+    private String sellFormType;
 
-    private String effectDate;//生效日期
+    private String productCode;
 
-    private String effectTime;//生效时间
+    private String insuranceNo;
 
-    private String expiryDate;//截止日期
+    private String effectDate;
 
-    private String expiryTime;//截止时间
+    private String effectTime;
 
-    private String needSms;//是否发送短信
+    private String expiryDate;
 
-    private String ticketNo;//票号(高铁/航班等)
+    private String expiryTime;
 
-    private String departureCity;//出发地点
+    private Double amount;
 
-    private String departureDate;//出发日期
+    private Double premium;
 
-    private String departureTime;//出发时间
+    private Double totalPremium;
 
-    private String arrivalCity;//到达地点
+    private String needSms;
 
-    private String arrivalDate;//到达日期
+    private String ticketNo;
 
-    private String arrivalTime;//到达时间
+    private String departureCity;
 
-    private String relationApp;//投保人与被保人关系
+    private String departureDate;
 
-    private String applicantName;//投保人姓名
+    private String departureTime;
 
-    private String applicantType;//投保人证件类型 0--身份证;1--护照;2--军官证;3--驾照;4--出生证明;5--户口簿; 9--数据转换证件;b--港澳台居民内地通行证
+    private String arrivalCity;
 
-    private String applicantNum;//投保人证件号码
+    private String arrivalDate;
 
-    private Integer applicantSex;//投保人性别  0:男1:女
+    private String arrivalTime;
 
-    private String appBirthDate;//投保人生日
+    private String relationApp;
 
-    private String applicantAddress;//投保人住址
+    private String relationBen;
 
-    private String applicantPhone;//投保人电话
+    private String applicantName;
 
-    private String insuredName;//被保人姓名
+    private String applicantType;
 
-    private String insuredType;//被保人证件类型  0--身份证;1--护照;2--军官证;3--驾照;4--出生证明;5--户口簿; 9--数据转换证件;b--港澳台居民内地通行证
+    private String applicantNum;
 
-    private String insuredNum;//被保人证件号码
+    private Integer applicantSex;
 
-    private Integer insuredSex;//被保人性别 0:男1:女
+    private String appBirthDate;
 
-    private String insuredBirthDate;//被保人生日
+    private String applicantAddress;
+
+    private String applicantPhone;
+
+    private String insuredName;
+
+    private String insuredType;
+
+    private String insuredNum;
+
+    private Integer insuredSex;
+
+    private String insuredBirthDate;
+
+    private String transSignaTure;
 
     public Long getId() {
         return id;
@@ -159,6 +171,14 @@ public class PolicyInfo {
         this.productCode = productCode == null ? null : productCode.trim();
     }
 
+    public String getInsuranceNo() {
+        return insuranceNo;
+    }
+
+    public void setInsuranceNo(String insuranceNo) {
+        this.insuranceNo = insuranceNo == null ? null : insuranceNo.trim();
+    }
+
     public String getEffectDate() {
         return effectDate;
     }
@@ -189,6 +209,30 @@ public class PolicyInfo {
 
     public void setExpiryTime(String expiryTime) {
         this.expiryTime = expiryTime == null ? null : expiryTime.trim();
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public Double getPremium() {
+        return premium;
+    }
+
+    public void setPremium(Double premium) {
+        this.premium = premium;
+    }
+
+    public Double getTotalPremium() {
+        return totalPremium;
+    }
+
+    public void setTotalPremium(Double totalPremium) {
+        this.totalPremium = totalPremium;
     }
 
     public String getNeedSms() {
@@ -261,6 +305,14 @@ public class PolicyInfo {
 
     public void setRelationApp(String relationApp) {
         this.relationApp = relationApp == null ? null : relationApp.trim();
+    }
+
+    public String getRelationBen() {
+        return relationBen;
+    }
+
+    public void setRelationBen(String relationBen) {
+        this.relationBen = relationBen == null ? null : relationBen.trim();
     }
 
     public String getApplicantName() {
@@ -357,5 +409,13 @@ public class PolicyInfo {
 
     public void setInsuredBirthDate(String insuredBirthDate) {
         this.insuredBirthDate = insuredBirthDate == null ? null : insuredBirthDate.trim();
+    }
+
+    public String getTransSignaTure() {
+        return transSignaTure;
+    }
+
+    public void setTransSignaTure(String transSignaTure) {
+        this.transSignaTure = transSignaTure == null ? null : transSignaTure.trim();
     }
 }

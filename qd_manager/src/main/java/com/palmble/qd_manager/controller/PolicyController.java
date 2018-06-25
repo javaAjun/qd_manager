@@ -27,6 +27,9 @@ import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 public class PolicyController {
 	@Autowired
 	private StandardPolicyPortType standardPolicyPortType;
+	
+	@Autowired
+	
 	@RequestMapping("/savePolicy")
 	public RestAPIResult savePolicy(SaveParamsBean s,
 			InsuredNode insured,BeneficiaryNode beneficiary,BasicNode basic
@@ -81,4 +84,26 @@ public class PolicyController {
 	        String reStr = sdf.format(dt1);
 	        System.out.println(reStr);
 	}
+	
+	/**
+	 * <p>Title: 获取保单详情</p>   
+	 * @author WangYanke  
+	 * @date 2018年6月25日
+	 */
+	@RequestMapping("/searchPolicy")
+	public void searchPolicy() {
+		
+	}
+	
+	/**
+	 * <p>Title:保单退保接口</p>   
+	 * @author WangYanke  
+	 * @date 2018年6月25日
+	 */
+	@RequestMapping("/保单退保")
+	public void surrenderPolicy(@RequestParam Integer id) {
+		
+	}
+	
+	
 }
