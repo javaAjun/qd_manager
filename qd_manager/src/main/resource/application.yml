@@ -6,4 +6,8 @@ spring:
     url: jdbc:mysql://180.76.98.239:3306/qd_manage?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     data-username: root
     data-password: a/xOejRkf3Ge
-    
+mybatis:
+  type-aliases-package: com.palmble.qd_manager.model 
+  typeAliasesPackage: com.palmble.qd_manager.model 
+  mapperLocations: classpath:mapper/*.xml
+   
