@@ -1,7 +1,5 @@
 package com.palmble.qd_manager.controller;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,26 +67,17 @@ public class PolicyController {
 		s.setApplicant(applicant);
 		s.setMain(basic);
 		s.setBeneficiary(beneficiary);
-		String xml=XmlUtil.getXmlString(s);
+		String xml="xml="+XmlUtil.getXmlString(s);
+		String url=(String)map.get("url");
 		try {
-			String result=Transponder.send(xml);
+			//180.76.98.239
+			String result=Transponder.sendPost(url, xml, true);
 			r.setRespMsg(result);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			r.setRespMsg(e.getMessage());
 			e.printStackTrace();
 		}
 		return r;
-	}
-	public static void main(String[] args) throws ParseException {
-	     SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-	        String str="20110101";
-	        Date dt=sdf.parse(str);
-	        Calendar rightNow = Calendar.getInstance();
-	        rightNow.setTime(dt);
-	        rightNow.add(Calendar.DAY_OF_YEAR,+10);//日期加10天
-	        Date dt1=rightNow.getTime();
-	        String reStr = sdf.format(dt1);
-	        System.out.println(reStr);
 	}
 	
 	/**
