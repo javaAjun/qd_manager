@@ -2,52 +2,78 @@ package com.palmble.qd_manager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 public class Transponder {
-	public static String send(String xml) throws IOException {  
-		 URL url = new URL("http://180.76.98.239:8888/test1");  
-	        //2：打开到服务地址的一个连接  
-	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();  
-	        //3：设置连接参数  
-	        //3.1设置发送方式：POST必须大写  
-	        connection.setRequestMethod("POST");  
-	        //3.2设置数据格式：Content-type  
-	        connection.setRequestProperty("content-type", "application/x-www-form-urlencoded;charset=utf-8");  
-	        //3.3设置输入输出，新创建的connection默认是没有读写权限的，  
-	        connection.setDoInput(true);  
-	        connection.setDoOutput(true);  
-	  
-	        //4：组织SOAP协议数据，发送给服务端  
-	        OutputStream os = connection.getOutputStream();  
-	        os.write(xml.getBytes());  
-	          
-	        //5：接收服务端的响应  
-	        int responseCode = connection.getResponseCode();  
-	        StringBuilder sb=null;
-	        if(200 == responseCode){//表示服务端响应成功  
-	            InputStream is = connection.getInputStream();  
-	            InputStreamReader isr = new InputStreamReader(is);  
-	            BufferedReader br = new BufferedReader(isr);  
-	              
-	            sb = new StringBuilder();  
-	            String temp = null;  
-	              
-	            while(null != (temp = br.readLine())){  
-	                sb.append(temp);  
-	            }
-	            is.close();  
-	            isr.close();  
-	            br.close();  
-	        }else {
-            	sb = new StringBuilder(""); 
-            	sb.append("responseCode"+responseCode+",msg:"+connection.getResponseMessage());
-            }  
-	  
-	        os.close();  
-	        return sb.toString();
+	 static String proxyHost = "180.76.98.239";  
+     static int proxyPort = 8888;  
+	 public static String sendPost(String url, String xml,boolean isproxy) {  
+	        OutputStreamWriter out = null;  
+	        BufferedReader in = null;  
+	        String result = "";  
+	        try {  
+	            URL realUrl = new URL(url);  
+	            HttpURLConnection conn = null;  
+	            if(isproxy){//使用代理模式  
+	                @SuppressWarnings("static-access")  
+	                Proxy proxy = new Proxy(Proxy.Type.DIRECT.HTTP, new InetSocketAddress(proxyHost, proxyPort));  
+	                conn = (HttpURLConnection) realUrl.openConnection(proxy);  
+	            }else{  
+	                conn = (HttpURLConnection) realUrl.openConnection();  
+	            }  
+	            // 打开和URL之间的连接  
+	               
+	            // 发送POST请求必须设置如下两行  
+	            conn.setDoOutput(true);  
+	            conn.setDoInput(true);  
+	            conn.setRequestMethod("POST");    // POST方法  
+	               
+	               
+	            // 设置通用的请求属性  
+	               
+	            conn.setRequestProperty("accept", "*/*");  
+	            conn.setRequestProperty("connection", "Keep-Alive");  
+	            conn.setRequestProperty("user-agent",  
+	                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");  
+	            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");  
+	               
+	            conn.connect();  
+	               
+	            // 获取URLConnection对象对应的输出流  
+	            out = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");  
+	            // 发送请求参数  
+	            out.write(xml);  
+	            // flush输出流的缓冲  
+	            out.flush();  
+	            // 定义BufferedReader输入流来读取URL的响应  
+	            in = new BufferedReader(  
+	                    new InputStreamReader(conn.getInputStream()));  
+	            String line;  
+	            while ((line = in.readLine()) != null) {  
+	                result += line;  
+	            }  
+	        } catch (Exception e) {  
+	            System.out.println("发送 POST 请求出现异常！"+e);  
+	            e.printStackTrace();  
+	        }  
+	        //使用finally块来关闭输出流、输入流  
+	        finally{  
+	            try{  
+	                if(out!=null){  
+	                    out.close();  
+	                }  
+	                if(in!=null){  
+	                    in.close();  
+	                }  
+	            }  
+	            catch(IOException ex){  
+	                ex.printStackTrace();  
+	            }  
+	        }  
+	        return result;   
 	    }  
 }
