@@ -80,19 +80,6 @@ public class PolicyController {
 		}
 		return r;
 	}
-<<<<<<< HEAD
-//	public static void main(String[] args) throws ParseException {
-//	     SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-//	        String str="20110101";
-//	        Date dt=sdf.parse(str);
-//	        Calendar rightNow = Calendar.getInstance();
-//	        rightNow.setTime(dt);
-//	        rightNow.add(Calendar.DAY_OF_YEAR,-10);//日期加10天
-//	        Date dt1=rightNow.getTime();
-//	        String reStr = sdf.format(dt1);
-//	        System.out.println(reStr);
-//	}
-=======
 	public static void main(String[] args) throws ParseException {
 	     SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	        String str="20110101";
@@ -138,5 +125,4 @@ public class PolicyController {
 	}
 	
 	
->>>>>>> 4c330dd59abc6abe663634e176e30e176221cea7
 }
