@@ -1,4 +1,4 @@
-package com.palmble.qd_manager.service.impl;
+package com.palmble.qd_manager.serviceImpl;
 
 import java.util.List;
 

@@ -36,7 +36,7 @@ public class PolicyController {
 	private StandardPolicyPortType standardPolicyPortType;*/
 	
 	@Autowired
-	PolicyService policyService;
+	private PolicyService policyService;
 	@RequestMapping("/savePolicy")
 	public RestAPIResult savePolicy(SaveParamsBean s,
 			InsuredNode insured,BeneficiaryNode beneficiary,BasicNode basic
