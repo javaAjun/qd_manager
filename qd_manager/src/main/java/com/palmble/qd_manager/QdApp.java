@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.palmble.qd_manager.dal")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.palmble.qd_manager")
 public class QdApp 
 {
    public static void main(String[] args) throws Exception {
