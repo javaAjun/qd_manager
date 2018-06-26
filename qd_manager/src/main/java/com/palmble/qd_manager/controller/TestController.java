@@ -16,6 +16,6 @@ public class TestController {
 	}
 	@PostMapping("/test2")
 	public String test2(String xml) {
-		return "success";
+		return xml;
 	}
 }

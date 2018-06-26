@@ -71,7 +71,7 @@ public class XmlUtil {
 //			System.out.println(m.invoke(b) instanceof Node);
 			if(m.invoke(b) instanceof Node) {
 				Field[] nodeField = m.invoke(b).getClass().getDeclaredFields();
-				Element nodeRoot = root.addElement("Node");
+				Element nodeRoot = root.addElement(nodeField[0].getName());
 				//nodeField[0].getName()
 				Node node=(Node)m.invoke(b);
 				for (int i = 1; i < nodeField.length; i++) {

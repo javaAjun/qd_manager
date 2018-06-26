@@ -25,8 +25,8 @@ import com.palmble.qd_manager.utils.XmlUtil;
 import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 @RestController
 public class PolicyController {
-	@Autowired
-	private StandardPolicyPortType standardPolicyPortType;
+//	@Autowired
+//	private StandardPolicyPortType standardPolicyPortType;
 	@RequestMapping("/savePolicy")
 	public RestAPIResult savePolicy(SaveParamsBean s,
 			InsuredNode insured,BeneficiaryNode beneficiary,BasicNode basic
@@ -36,7 +36,7 @@ public class PolicyController {
 		r.setRespMsg("成功");
 		basic.setTransID(RandomTranUtil.getTrandNo());
 		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMDD");
-		SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMSS");
+		SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 		Date now=new Date();
 		basic.setTransDate(dateFormat.format(now));
 		basic.setTransTime(timeFormat.format(now));
@@ -70,15 +70,15 @@ public class PolicyController {
 		}
 		return r;
 	}
-	public static void main(String[] args) throws ParseException {
-	     SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-	        String str="20110101";
-	        Date dt=sdf.parse(str);
-	        Calendar rightNow = Calendar.getInstance();
-	        rightNow.setTime(dt);
-	        rightNow.add(Calendar.DAY_OF_YEAR,-10);//日期加10天
-	        Date dt1=rightNow.getTime();
-	        String reStr = sdf.format(dt1);
-	        System.out.println(reStr);
-	}
+//	public static void main(String[] args) throws ParseException {
+//	     SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+//	        String str="20110101";
+//	        Date dt=sdf.parse(str);
+//	        Calendar rightNow = Calendar.getInstance();
+//	        rightNow.setTime(dt);
+//	        rightNow.add(Calendar.DAY_OF_YEAR,-10);//日期加10天
+//	        Date dt1=rightNow.getTime();
+//	        String reStr = sdf.format(dt1);
+//	        System.out.println(reStr);
+//	}
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApplyRequest>
+	<Main>
+		<TransID>5021791806251006991</TransID>
+		<TransDate>201806176</TransDate>
+		<TransTime>100634</TransTime>
+		<PosCode>ISH00005</PosCode>
+		<SellFormType>EUN12007</SellFormType>
+		<ProductCode>66368025</ProductCode>
+		<EffectDate>201806173</EffectDate>
+		<EffectTime>100634</EffectTime>
+		<ExpiryDate>201906176</ExpiryDate>
+		<ExpiryTime>100634</ExpiryTime>
+	</Main>
+	<Insured>
+		<InsuredName>zhansan</InsuredName>
+		<InsuredType>0</InsuredType>
+		<InsuredNum>411323199808080808</InsuredNum>
+		<InsuredSex>0</InsuredSex>
+		<InsuredBirthDate>19980808</InsuredBirthDate>
+	</Insured>
+	<Applicant />
+	<Beneficiary />
+</ApplyRequest>
