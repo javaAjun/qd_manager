@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 @RestController
 public class TestController {
-	@Autowired
+	/*@Autowired
 	private StandardPolicyPortType standardPolicyPortType;
 	@PostMapping("/test1")
 	public String test1(String xml) {
@@ -17,5 +17,5 @@ public class TestController {
 	@PostMapping("/test2")
 	public String test2(String xml) {
 		return "success";
-	}
+	}*/
 }

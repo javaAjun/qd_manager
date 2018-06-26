@@ -1,6 +1,10 @@
 package com.palmble.qd_manager.dal;
 
+
+import java.util.List;
+
 import com.palmble.qd_manager.model.PolicyInfo;
+
 
 public interface PolicyInfoMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +18,6 @@ public interface PolicyInfoMapper {
     int updateByPrimaryKeySelective(PolicyInfo record);
 
     int updateByPrimaryKey(PolicyInfo record);
+
+	List<PolicyInfo> getAllPolicy();
 }

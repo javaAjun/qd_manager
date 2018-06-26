@@ -5,10 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,16 +22,21 @@ import com.palmble.qd_manager.bean.BeneficiaryNode;
 import com.palmble.qd_manager.bean.InsuredNode;
 import com.palmble.qd_manager.bean.RestAPIResult;
 import com.palmble.qd_manager.bean.SaveParamsBean;
+import com.palmble.qd_manager.bean.SearchNode;
+import com.palmble.qd_manager.bean.SearchParamsBean;
+import com.palmble.qd_manager.model.PolicyInfo;
+import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
 import com.palmble.qd_manager.utils.XmlUtil;
-import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
+//import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
+
 @RestController
 public class PolicyController {
-	@Autowired
-	private StandardPolicyPortType standardPolicyPortType;
+	/*@Autowired
+	private StandardPolicyPortType standardPolicyPortType;*/
 	
 	@Autowired
-	
+	PolicyService policyService;
 	@RequestMapping("/savePolicy")
 	public RestAPIResult savePolicy(SaveParamsBean s,
 			InsuredNode insured,BeneficiaryNode beneficiary,BasicNode basic
@@ -79,7 +86,7 @@ public class PolicyController {
 	        Date dt=sdf.parse(str);
 	        Calendar rightNow = Calendar.getInstance();
 	        rightNow.setTime(dt);
-	        rightNow.add(Calendar.DAY_OF_YEAR,-10);//日期加10天
+	        rightNow.add(Calendar.DAY_OF_YEAR,+10);//日期加10天
 	        Date dt1=rightNow.getTime();
 	        String reStr = sdf.format(dt1);
 	        System.out.println(reStr);
@@ -90,9 +97,16 @@ public class PolicyController {
 	 * @author WangYanke  
 	 * @date 2018年6月25日
 	 */
-	@RequestMapping("/searchPolicy")
-	public void searchPolicy() {
-		
+	@GetMapping("/searchPolicy")
+	public void searchPolicy(@RequestParam Long id) {
+		PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
+		SearchNode node=new SearchNode();
+		node.setInsuranceNo(policyInfo.getInsuranceNo());
+		node.setTransSignature(policyInfo.getTransSignaTure());
+		SearchParamsBean search=new SearchParamsBean();
+		search.setMain(node);
+		String xml=XmlUtil.getXmlString(search);
+		System.out.println(xml);
 	}
 	
 	/**
@@ -101,8 +115,13 @@ public class PolicyController {
 	 * @date 2018年6月25日
 	 */
 	@RequestMapping("/保单退保")
-	public void surrenderPolicy(@RequestParam Integer id) {
+	public void surrenderPolicy(@RequestParam Long id) {
 		
+	}
+	
+	@RequestMapping("policyList")
+	public List<PolicyInfo> getAllPolicy() {
+		return policyService.getAllPolict();
 	}
 	
 	
