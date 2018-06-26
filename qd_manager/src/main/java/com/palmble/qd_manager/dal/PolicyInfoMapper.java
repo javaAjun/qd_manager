@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.palmble.qd_manager.model.PolicyInfo;
 
-
 public interface PolicyInfoMapper {
     int deleteByPrimaryKey(Long id);
 
