@@ -117,4 +117,8 @@ public class XmlUtil {
 		    public static String getXmlString(Object b){
 		    return getDocument(b).asXML();
 		    }
+		    public static <T> T xmlToObj(String xml,Class<?> clazz){
+		    	XStream xstream = new XStream();
+			    return null;
+			    }
 }

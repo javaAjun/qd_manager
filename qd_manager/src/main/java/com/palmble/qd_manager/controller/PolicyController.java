@@ -22,6 +22,7 @@ import com.palmble.qd_manager.bean.SaveParamsBean;
 import com.palmble.qd_manager.bean.SearchNode;
 import com.palmble.qd_manager.bean.SearchParamsBean;
 import com.palmble.qd_manager.model.PolicyInfo;
+import com.palmble.qd_manager.resultBean.ApplyResponse;
 import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
 import com.palmble.qd_manager.utils.XmlUtil;
@@ -42,7 +43,7 @@ public class PolicyController {
 		r.setRespCode(0);
 		r.setRespMsg("成功");
 		basic.setTransID(RandomTranUtil.getTrandNo());
-		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMDD");
+		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
 		SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 		Date now=new Date();
 		basic.setTransDate(dateFormat.format(now));
@@ -56,11 +57,11 @@ public class PolicyController {
 		 basic.setSellFormType("EUN12007");
 		//TODO 测试数据
 		basic.setProductCode("66368025");
-		rightNow.add(Calendar.DAY_OF_YEAR,-3);
+		rightNow.add(Calendar.DAY_OF_YEAR,3);
 		basic.setEffectDate(dateFormat.format(rightNow.getTime()));
 		basic.setEffectTime(timeFormat.format(rightNow.getTime()));
 		rightNow.setTime(now);
-		rightNow.add(Calendar.YEAR,years);
+		rightNow.add(Calendar.DAY_OF_YEAR,years);
 		basic.setExpiryDate(dateFormat.format(rightNow.getTime()));
 		basic.setExpiryTime(timeFormat.format(rightNow.getTime()));
 		s.setInsured(insured);
@@ -72,7 +73,8 @@ public class PolicyController {
 		try {
 			//180.76.98.239
 			String result=Transponder.sendPost(url, xml, true);
-			r.setRespMsg(result);
+			ApplyResponse a=(ApplyResponse)XmlUtil.getObject(result, ApplyResponse.class);
+			r.setRespMsg(a.toString());
 		} catch (Exception e) {
 			r.setRespMsg(e.getMessage());
 			e.printStackTrace();
