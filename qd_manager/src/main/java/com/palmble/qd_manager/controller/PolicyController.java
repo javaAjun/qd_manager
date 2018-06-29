@@ -71,7 +71,7 @@ public class PolicyController {
 		String xml="xml="+XmlUtil.getXmlString(s);
 		String url=(String)map.get("url");
 		try {
-			//180.76.98.239
+			//182.92.99.67
 			String result=Transponder.sendPost(url, xml, true);
 			ApplyResponse a=(ApplyResponse)XmlUtil.getObject(result, ApplyResponse.class);
 			r.setRespMsg(a.toString());
