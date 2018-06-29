@@ -1,7 +1,6 @@
 package com.palmble.qd_manager.bean;
 
-public class BasicNode extends Node{
-	private String Main;//基本交易节点
+public class BasicNode {
 	private String TransID;//交易流水号
 	private String OrderID;//订单号
 	private String TransType;//交易类型
@@ -40,12 +39,7 @@ public class BasicNode extends Node{
 	private String AccName;
 	private String BankAccNo;
 	private String TransSignature;
-	public String getMain() {
-		return Main;
-	}
-	public void setMain(String main) {
-		Main = main;
-	}
+	
 	public String getTransID() {
 		return TransID;
 	}

@@ -1,8 +1,14 @@
 package com.palmble.qd_manager.resultBean;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+@XStreamAlias("ResultStatus")
 public class ResultStatus {
+	@XStreamAlias("ResultCode")
 	private String ResultCode;
+	
+	@XStreamAlias("ResultMsg")
 	private String ResultMsg;
+	
 	public String getResultCode() {
 		return ResultCode;
 	}

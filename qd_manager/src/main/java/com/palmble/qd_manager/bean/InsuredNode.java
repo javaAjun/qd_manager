@@ -1,18 +1,12 @@
 package com.palmble.qd_manager.bean;
 
-public class InsuredNode extends Node{
-	private String Insured;//被保人信息节点
+public class InsuredNode{
 	private String InsuredName;//被保人姓名
 	private String InsuredType;//被保人证件类型 0--身份证;1--护照;2--军官证;3--驾照;4--出生证明;5--户口簿; 9--数据转换证件;b--港澳台居民内地通行证 
 	private String InsuredNum;//被保人证件号码
 	private String InsuredSex;//被保人性别
 	private String InsuredBirthDate;//被保人生日
-	public String getInsured() {
-		return Insured;
-	}
-	public void setInsured(String insured) {
-		Insured = insured;
-	}
+
 	public String getInsuredName() {
 		return InsuredName;
 	}

@@ -1,10 +1,22 @@
 package com.palmble.qd_manager.resultBean;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("Applicant")
 public class Applicant {
+	@XStreamAlias("ApplicantName")
 	private String ApplicantName;
+	
+	@XStreamAlias("ApplicantType")
 	private String ApplicantType;
+	
+	@XStreamAlias("ApplicantNum")
 	private String ApplicantNum;
+	
+	@XStreamAlias("ApplicantSex")
 	private String ApplicantSex;
+	
+	@XStreamAlias("ApplicantBirthDate")
 	private String ApplicantBirthDate;
 	public String getApplicantName() {
 		return ApplicantName;

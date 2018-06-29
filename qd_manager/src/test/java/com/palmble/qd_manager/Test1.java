@@ -21,7 +21,7 @@ public class Test1 {
 		b.setArrivalCity("city");
 		b.setArrivalDate("date");
 		ApplicantNode applicantNode = new ApplicantNode();
-		applicantNode.setApplicant("appcat");
+		//applicantNode.setApplicant("appcat");
 		applicantNode.setApplicantAddress("address");
 		a.setMain(b);
 		a.setApplicant(applicantNode);

@@ -1,5 +1,12 @@
 package com.palmble.qd_manager.bean;
 
+/**
+* <p>Title: 保单查询参数转换XML实体</p>  
+* <p>Description:pamable </p>  
+* @author WangYanke  
+* @date 2018年6月26日 
+* @version 1.0
+ */
 public class SearchParamsBean {
 	private String ApplyResponse;
 	private SearchNode Main;

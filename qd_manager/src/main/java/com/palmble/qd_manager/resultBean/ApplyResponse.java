@@ -1,32 +1,41 @@
 package com.palmble.qd_manager.resultBean;
 
-import java.util.List;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 
 //新华接口返回xml用dom4j转化为该的对象
+@XStreamAlias("ApplyResponse")
 public class ApplyResponse {
-	private Main main;
+	
+	@XStreamAlias("ResultStatus")
 	private ResultStatus resultStatus;
-	private List<Insurances> Insurances;
+	
+	@XStreamAlias("Main")
+	private Main main;
+	
+	@XStreamAlias("Insured")
 	private Insured insured;
+	
+	@XStreamAlias("Applicant")
 	private Applicant applicant;
+	
+	@XStreamAlias("Beneficiary")
 	private Beneficiary beneficiary;
-	public Main getMain() {
-		return main;
-	}
-	public void setMain(Main main) {
-		this.main = main;
-	}
+	
+	
+	
 	public ResultStatus getResultStatus() {
 		return resultStatus;
 	}
 	public void setResultStatus(ResultStatus resultStatus) {
 		this.resultStatus = resultStatus;
 	}
-	public List<Insurances> getInsurances() {
-		return Insurances;
+	public Main getMain() {
+		return main;
 	}
-	public void setInsurances(List<Insurances> insurances) {
-		Insurances = insurances;
+	public void setMain(Main main) {
+		this.main = main;
 	}
 	public Insured getInsured() {
 		return insured;

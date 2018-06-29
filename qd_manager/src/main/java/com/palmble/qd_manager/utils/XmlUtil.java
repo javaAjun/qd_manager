@@ -10,6 +10,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 import com.palmble.qd_manager.bean.Node;
+import com.thoughtworks.xstream.XStream;
 
 
 public class XmlUtil {

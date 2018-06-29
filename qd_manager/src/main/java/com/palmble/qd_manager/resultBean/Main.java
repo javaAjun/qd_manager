@@ -2,18 +2,44 @@ package com.palmble.qd_manager.resultBean;
 
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("Main")
 public class Main {
+	@XStreamAlias("Insurances")
 	private List<Insurances> insurances;
+	
+	@XStreamAlias("TransID")
 	private String TransID;
+	
+	@XStreamAlias("EffectDate")
 	private String EffectDate;
+	
+	@XStreamAlias("ExpiryDate")
 	private String ExpiryDate;
+	
+	@XStreamAlias("InsuranceNo")
 	private String InsuranceNo;
+	
+	@XStreamAlias("EpolicyInfo")
 	private String EpolicyInfo;
+	
+	@XStreamAlias("PlanCode")
 	private String PlanCode;
+	
+	@XStreamAlias("Amount")
 	private String Amount;
+	
+	@XStreamAlias("RelationApp")
 	private String RelationApp;
+	
+	@XStreamAlias("Premium")
 	private String Premium;
+	
+	@XStreamAlias("TotalPremium")
 	private String TotalPremium;
+	
+	@XStreamAlias("RelationBen")
 	private String RelationBen;
 	
 	public String getTotalPremium() {
