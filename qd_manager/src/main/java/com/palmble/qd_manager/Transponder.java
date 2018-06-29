@@ -9,7 +9,7 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
 public class Transponder {
-	 static String proxyHost = "182.92.99.67";  
+	 static String proxyHost = "180.76.98.239";  
      static int proxyPort = 8888;  
 	 public static String sendPost(String url, String xml,boolean isproxy) {  
 	        OutputStreamWriter out = null;  
