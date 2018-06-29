@@ -3,8 +3,10 @@ package com.palmble.qd_manager.resultBean;
 import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamImplicitCollection;
 
 @XStreamAlias("Main")
+@XStreamImplicitCollection("insurances")
 public class Main {
 	@XStreamAlias("Insurances")
 	private List<Insurances> insurances;
@@ -18,8 +20,6 @@ public class Main {
 	@XStreamAlias("ExpiryDate")
 	private String ExpiryDate;
 	
-	@XStreamAlias("InsuranceNo")
-	private String InsuranceNo;
 	
 	@XStreamAlias("EpolicyInfo")
 	private String EpolicyInfo;
@@ -89,12 +89,6 @@ public class Main {
 	}
 	public void setExpiryDate(String expiryDate) {
 		ExpiryDate = expiryDate;
-	}
-	public String getInsuranceNo() {
-		return InsuranceNo;
-	}
-	public void setInsuranceNo(String insuranceNo) {
-		InsuranceNo = insuranceNo;
 	}
 	public String getEpolicyInfo() {
 		return EpolicyInfo;
