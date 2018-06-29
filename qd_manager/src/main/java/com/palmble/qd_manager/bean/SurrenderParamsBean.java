@@ -1,24 +1,25 @@
 package com.palmble.qd_manager.bean;
 
+/**
+* <p>Title: 退单XML根节点实体类,该实体用于转换对象</p>  
+* <p>Description:pamable </p>  
+* @author WangYanke  
+* @date 2018年6月27日 
+* @version 1.0
+ */
 public class SurrenderParamsBean {
-	private String CancelRequest;//根节点
 	private TransData TransData;
+
 	
 	
-	public SurrenderParamsBean(String cancelRequest, com.palmble.qd_manager.bean.TransData transData) {
-		super();
-		CancelRequest = cancelRequest;
-		TransData = transData;
-	}
+	
 	public SurrenderParamsBean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public String getCancelRequest() {
-		return CancelRequest;
-	}
-	public void setCancelRequest(String cancelRequest) {
-		CancelRequest = cancelRequest;
+	public SurrenderParamsBean(com.palmble.qd_manager.bean.TransData transData) {
+		super();
+		TransData = transData;
 	}
 	public TransData getTransData() {
 		return TransData;

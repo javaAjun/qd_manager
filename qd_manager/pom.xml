@@ -52,10 +52,11 @@
 		   <artifactId>dom4j</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/xstream/xstream -->
+		
 		<dependency>
-		    <groupId>xstream</groupId>
+		    <groupId>com.thoughtworks.xstream</groupId>
 		    <artifactId>xstream</artifactId>
-		    <version>1.2.2</version>
+		    <version>1.4.7</version>
 		</dependency>
 		
 		<dependency>
@@ -78,7 +79,7 @@
 		</dependency>
 		
     </dependencies>
-    
+
     <build>  
   <plugins>  
     <plugin>  
@@ -108,6 +109,6 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-  </plugins>  
+  </plugins>
  </build>  
 </project>

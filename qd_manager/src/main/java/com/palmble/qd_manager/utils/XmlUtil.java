@@ -10,6 +10,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 import com.palmble.qd_manager.bean.Node;
+import com.thoughtworks.xstream.XStream;
 
 
 public class XmlUtil {
@@ -117,4 +118,8 @@ public class XmlUtil {
 		    public static String getXmlString(Object b){
 		    return getDocument(b).asXML();
 		    }
+		    public static <T> T xmlToObj(String xml,Class<?> clazz){
+		    	XStream xstream = new XStream();
+			    return null;
+			    }
 }

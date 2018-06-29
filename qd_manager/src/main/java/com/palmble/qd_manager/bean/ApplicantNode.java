@@ -1,7 +1,6 @@
 package com.palmble.qd_manager.bean;
 
-public class ApplicantNode extends Node{
-	private String Applicant;//投保人信息节点
+public class ApplicantNode{
 	private String ApplicantName;//投保人姓名
 	private String ApplicantType;//投保人证件类型 0--身份证;1--护照;2--军官证;3--驾照;4--出生证明;5--户口簿; 9--数据转换证件;b--港澳台居民内地通行证
 	private String ApplicantNum;//投保人证件号码
@@ -9,12 +8,7 @@ public class ApplicantNode extends Node{
 	private String ApplicantBirthDate;//投保人出生日期
 	private String ApplicantAddress;//投保人地址
 	private String ApplicantPhone;//投保人联系电话
-	public String getApplicant() {
-		return Applicant;
-	}
-	public void setApplicant(String applicant) {
-		Applicant = applicant;
-	}
+
 	public String getApplicantName() {
 		return ApplicantName;
 	}

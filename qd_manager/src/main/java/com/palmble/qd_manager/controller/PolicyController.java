@@ -1,5 +1,7 @@
 package com.palmble.qd_manager.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.palmble.qd_manager.Transponder;
@@ -28,9 +31,14 @@ import com.palmble.qd_manager.bean.SearchParamsBean;
 import com.palmble.qd_manager.bean.SurrenderParamsBean;
 import com.palmble.qd_manager.bean.TransData;
 import com.palmble.qd_manager.model.PolicyInfo;
+import com.palmble.qd_manager.resultBean.ApplyResponse;
 import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
+import com.palmble.qd_manager.utils.XmlDeclarationXStream;
 import com.palmble.qd_manager.utils.XmlUtil;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
 //import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 
 @RestController
@@ -51,7 +59,7 @@ public class PolicyController {
 		r.setRespCode(0);
 		r.setRespMsg("成功");
 		basic.setTransID(RandomTranUtil.getTrandNo());
-		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMDD");
+		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
 		SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 		Date now=new Date();
 		basic.setTransDate(dateFormat.format(now));
@@ -65,23 +73,48 @@ public class PolicyController {
 		 basic.setSellFormType("EUN12007");
 		//TODO 测试数据
 		basic.setProductCode("66368025");
-		rightNow.add(Calendar.DAY_OF_YEAR,-3);
+		/**
+		 * 测试数据,被保人信息
+		 */
+		insured.setInsuredName("张晓东");
+		insured.setInsuredNum("410325199006181077");
+		insured.setInsuredSex("0");
+		insured.setInsuredType("0");
+		insured.setInsuredBirthDate("19900618");
+		rightNow.add(Calendar.DAY_OF_YEAR,3);
 		basic.setEffectDate(dateFormat.format(rightNow.getTime()));
 		basic.setEffectTime(timeFormat.format(rightNow.getTime()));
 		rightNow.setTime(now);
-		rightNow.add(Calendar.YEAR,years);
+		rightNow.add(Calendar.DAY_OF_YEAR,years);
 		basic.setExpiryDate(dateFormat.format(rightNow.getTime()));
 		basic.setExpiryTime(timeFormat.format(rightNow.getTime()));
 		s.setInsured(insured);
 		s.setApplicant(applicant);
 		s.setMain(basic);
 		s.setBeneficiary(beneficiary);
-		String xml="xml="+XmlUtil.getXmlString(s);
-		String url=(String)map.get("url");
+		XmlDeclarationXStream st=new XmlDeclarationXStream(new DomDriver());
+		/**
+		 * 将对应实体名称变更为标签名,否则生成标签名为实体路径
+		 */
+		//st.alias("ApplyRequest", SaveParamsBean.class);
+		/*st.alias("Main", BasicNode.class);
+		st.alias("Insured", InsuredNode.class);
+		st.alias("Applicant", ApplicantNode.class);
+		st.alias("Beneficiary", BeneficiaryNode.class);*/
+		st.processAnnotations(SaveParamsBean.class);//启用注解
+		String xml = "xml="+st.toXML(s);
+		//String xml="xml="+XmlUtil.getXmlString(s);
+		//String url=(String)map.get("url");
+		String  url="http://180.76.98.239:8888/test1";
 		try {
 			//180.76.98.239
 			String result=Transponder.sendPost(url, xml, true);
-			r.setRespMsg(result);
+			st.processAnnotations(ApplyResponse.class);//启用注解
+			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
+			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
+			System.out.println(result);
+			//ApplyResponse a=(ApplyResponse)XmlUtil.getObject(result, ApplyResponse.class);
+			//r.setRespMsg(a.toString());
 		} catch (Exception e) {
 			r.setRespMsg(e.getMessage());
 			e.printStackTrace();
@@ -121,10 +154,12 @@ public class PolicyController {
 	/**
 	 * <p>Title:保单退保接口</p>   
 	 * @author WangYanke  
+	 * @return 
 	 * @date 2018年6月25日
 	 */
-	@RequestMapping("/surrenderPolicy")
-	public void surrenderPolicy(@RequestParam Long id) {
+	@GetMapping("/surrenderPolicy")
+	public String surrenderPolicy( Long id) {
+		String url="http://180.76.98.239:8888/test3";
 		PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
 		Date now=new Date();
 		List<String> list=new ArrayList<>();
@@ -142,8 +177,22 @@ public class PolicyController {
 		trans.setTransID(policyInfo.getTransId());
 		SurrenderParamsBean surrenderParams=new SurrenderParamsBean();
 		surrenderParams.setTransData(trans);
-		String xml=XmlUtil.getXmlString(surrenderParams);
+		XmlDeclarationXStream st=new XmlDeclarationXStream();
+		st.alias("CancelRequest", SurrenderParamsBean.class);
+		st.alias("TransData", TransData.class);
+		st.alias("Insurances", PolicySet.class);
+		String xml=st.toXML(surrenderParams);
+		 //调用toXML 将对象转成字符串
 		System.out.println(xml);
+		String result="";
+		try {
+			result=Transponder.sendPost(url, xml, true);
+		} catch (Exception e) {
+			logger.error("----------------获取保单详情接口调用异常---------------------------");
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	@RequestMapping("policyList")
