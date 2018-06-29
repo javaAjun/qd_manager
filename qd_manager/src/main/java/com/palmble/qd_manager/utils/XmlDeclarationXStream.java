@@ -5,8 +5,13 @@ import java.io.Writer;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
-
+/**
+* <p>Title:XML头部生成工具类</p>  
+* <p>Description:pamable </p>  
+* @author WangYanke  
+* @date 2018年6月29日 
+* @version 1.0
+ */
 public class XmlDeclarationXStream extends XStream {
     private String version;
  

@@ -1,7 +1,5 @@
 package com.palmble.qd_manager.controller;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.palmble.qd_manager.Transponder;
@@ -35,10 +32,7 @@ import com.palmble.qd_manager.resultBean.ApplyResponse;
 import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
 import com.palmble.qd_manager.utils.XmlDeclarationXStream;
-import com.palmble.qd_manager.utils.XmlUtil;
-import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 //import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 
 @RestController
@@ -76,11 +70,11 @@ public class PolicyController {
 		/**
 		 * 测试数据,被保人信息
 		 */
-		insured.setInsuredName("张晓东");
-		insured.setInsuredNum("410325199006181077");
+		insured.setInsuredName("王彦克");
+		insured.setInsuredNum("41032519900611107X");
 		insured.setInsuredSex("0");
 		insured.setInsuredType("0");
-		insured.setInsuredBirthDate("19900618");
+		insured.setInsuredBirthDate("19900611");
 		rightNow.add(Calendar.DAY_OF_YEAR,3);
 		basic.setEffectDate(dateFormat.format(rightNow.getTime()));
 		basic.setEffectTime(timeFormat.format(rightNow.getTime()));
@@ -141,11 +135,10 @@ public class PolicyController {
 		String url="http://180.76.98.239:8888/test2";
 		PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
 		SearchNode node=new SearchNode();
-		node.setInsuranceNo(policyInfo.getInsuranceNo());
-		node.setTransSignature(policyInfo.getTransSignaTure());
 		SearchParamsBean search=new SearchParamsBean();
 		search.setMain(node);
-		String xml=XmlUtil.getXmlString(search);
+		XmlDeclarationXStream st=new XmlDeclarationXStream(new DomDriver());
+		String xml = "xml="+st.toXML(search);
 		System.out.println(xml);
 		//180.76.98.239
 		String result="";
