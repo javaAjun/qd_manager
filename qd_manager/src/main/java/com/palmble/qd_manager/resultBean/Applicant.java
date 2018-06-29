@@ -48,4 +48,10 @@ public class Applicant {
 	public void setApplicantBirthDate(String applicantBirthDate) {
 		ApplicantBirthDate = applicantBirthDate;
 	}
+	@Override
+	public String toString() {
+		return "Applicant [ApplicantName=" + ApplicantName + ", ApplicantType=" + ApplicantType + ", ApplicantNum="
+				+ ApplicantNum + ", ApplicantSex=" + ApplicantSex + ", ApplicantBirthDate=" + ApplicantBirthDate + "]";
+	}
+	
 }

@@ -1,9 +1,13 @@
 package com.palmble.qd_manager.controller;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +33,7 @@ import com.palmble.qd_manager.bean.SurrenderParamsBean;
 import com.palmble.qd_manager.bean.TransData;
 import com.palmble.qd_manager.model.PolicyInfo;
 import com.palmble.qd_manager.resultBean.ApplyResponse;
+import com.palmble.qd_manager.resultBean.Main;
 import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
 import com.palmble.qd_manager.utils.XmlDeclarationXStream;
@@ -105,12 +110,10 @@ public class PolicyController {
 			String result=Transponder.sendPost(url, xml, true);
 			st.processAnnotations(ApplyResponse.class);//启用注解
 			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
+			System.out.println(respnese.toString());
 			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
+			save(respnese);
 			if(respnese.getResultStatus().getResultCode().equals("00")) {//投保成功,保存保单信息
-				PolicyInfo policyInfo=new PolicyInfo();
-				
-				
-				
 				
 				
 			}else {//投保失败
@@ -201,5 +204,17 @@ public class PolicyController {
 		return policyService.getAllPolict();
 	}
 	
-	
+	public void save(ApplyResponse respnese) throws Exception {
+//		PolicyInfo policyInfo=new PolicyInfo();
+//		Field[] resField=respnese.getClass().getDeclaredFields();
+//		Map<String,Object> map=new HashMap<String,Object>();
+//		for(Field field:resField) {
+//			String name=field.getName();
+//			name = name.substring(0, 1).toUpperCase()
+//					+ name.substring(1);
+//			Method m = respnese.getClass().getMethod("get" + name);
+//			map.put(field.getName(), m.invoke(respnese));
+//		}
+		
+	}
 }
