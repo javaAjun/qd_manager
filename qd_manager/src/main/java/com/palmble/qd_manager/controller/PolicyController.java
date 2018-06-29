@@ -112,9 +112,17 @@ public class PolicyController {
 			st.processAnnotations(ApplyResponse.class);//启用注解
 			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
 			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
-			System.out.println(result);
-			//ApplyResponse a=(ApplyResponse)XmlUtil.getObject(result, ApplyResponse.class);
-			//r.setRespMsg(a.toString());
+			if(respnese.getResultStatus().getResultCode().equals("00")) {//投保成功,保存保单信息
+				PolicyInfo policyInfo=new PolicyInfo();
+				
+				
+				
+				
+				
+			}else {//投保失败
+				r.setDataCode("1");
+				r.setRespMsg(respnese.getResultStatus().getResultMsg());
+			}
 		} catch (Exception e) {
 			r.setRespMsg(e.getMessage());
 			e.printStackTrace();
