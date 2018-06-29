@@ -1,27 +1,60 @@
 package com.palmble.qd_manager.bean;
 
+import java.util.List;
 
-public class TransData extends Node{
+import com.palmble.qd_manager.resultBean.Insurances;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("Main")
+public class TransData{
+	
+	@XStreamAlias("TransID")
 	private String TransID;
+	
+	@XStreamAlias("SellFormType")
 	private String SellFormType;
-	private	PolicySet Insurances;
+	
+	@XStreamAlias("Insurances")
+	private List<Insurances> insurances;
+	
+	@XStreamAlias("TransDate")
 	private String TransDate;
+	
+	@XStreamAlias("TransTime")
 	private String TransTime;
+	
+	@XStreamAlias("Extend1")
 	private String Extend1;
 	
+	@XStreamAlias("ResultCode")
+	private String ResultCode;
 	
-	public TransData() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public PolicySet getInsurances() {
-		return Insurances;
-	}
+	@XStreamAlias("ResultMsg")
+	private String ResultMsg;
+	
+	
+	
+	
 
-	public void setInsurances(PolicySet insurances) {
-		Insurances = insurances;
-	}
 
+	public String getResultCode() {
+		return ResultCode;
+	}
+	public void setResultCode(String resultCode) {
+		ResultCode = resultCode;
+	}
+	public String getResultMsg() {
+		return ResultMsg;
+	}
+	public void setResultMsg(String resultMsg) {
+		ResultMsg = resultMsg;
+	}
+	public List<Insurances> getInsurances() {
+		return insurances;
+	}
+	public void setInsurances(List<Insurances> insurances) {
+		this.insurances = insurances;
+	}
 	public String getTransID() {
 		return TransID;
 	}

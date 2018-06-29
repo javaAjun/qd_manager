@@ -20,15 +20,16 @@ import com.palmble.qd_manager.bean.ApplicantNode;
 import com.palmble.qd_manager.bean.BasicNode;
 import com.palmble.qd_manager.bean.BeneficiaryNode;
 import com.palmble.qd_manager.bean.InsuredNode;
-import com.palmble.qd_manager.bean.PolicySet;
 import com.palmble.qd_manager.bean.RestAPIResult;
 import com.palmble.qd_manager.bean.SaveParamsBean;
+import com.palmble.qd_manager.bean.SearchMain;
 import com.palmble.qd_manager.bean.SearchNode;
-import com.palmble.qd_manager.bean.SearchParamsBean;
 import com.palmble.qd_manager.bean.SurrenderParamsBean;
 import com.palmble.qd_manager.bean.TransData;
 import com.palmble.qd_manager.model.PolicyInfo;
 import com.palmble.qd_manager.resultBean.ApplyResponse;
+import com.palmble.qd_manager.resultBean.Insurances;
+import com.palmble.qd_manager.resultBean.SurremderRespones;
 import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
 import com.palmble.qd_manager.utils.XmlDeclarationXStream;
@@ -43,7 +44,7 @@ public class PolicyController {
 	@Autowired
 	private PolicyService policyService;
 	
-	private SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMDD");
+	private SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
 	private SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 	@RequestMapping("/savePolicy")
 	public RestAPIResult savePolicy(SaveParamsBean s,
@@ -53,8 +54,6 @@ public class PolicyController {
 		r.setRespCode(0);
 		r.setRespMsg("成功");
 		basic.setTransID(RandomTranUtil.getTrandNo());
-		SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
-		SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 		Date now=new Date();
 		basic.setTransDate(dateFormat.format(now));
 		basic.setTransTime(timeFormat.format(now));
@@ -86,7 +85,7 @@ public class PolicyController {
 		s.setApplicant(applicant);
 		s.setMain(basic);
 		s.setBeneficiary(beneficiary);
-		XmlDeclarationXStream st=new XmlDeclarationXStream(new DomDriver());
+		XmlDeclarationXStream st=new XmlDeclarationXStream();
 		/**
 		 * 将对应实体名称变更为标签名,否则生成标签名为实体路径
 		 */
@@ -106,6 +105,7 @@ public class PolicyController {
 			st.processAnnotations(ApplyResponse.class);//启用注解
 			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
 			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
+			System.out.println("**********************"+respnese.getMain().getInsurances().get(0).getInsuranceNo());
 			if(respnese.getResultStatus().getResultCode().equals("00")) {//投保成功,保存保单信息
 				PolicyInfo policyInfo=new PolicyInfo();
 				
@@ -133,17 +133,24 @@ public class PolicyController {
 	@GetMapping("/searchPolicy")
 	public String searchPolicy(@RequestParam Long id) {
 		String url="http://180.76.98.239:8888/test2";
-		PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
+		//PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
 		SearchNode node=new SearchNode();
-		SearchParamsBean search=new SearchParamsBean();
-		search.setMain(node);
-		XmlDeclarationXStream st=new XmlDeclarationXStream(new DomDriver());
-		String xml = "xml="+st.toXML(search);
+		SearchMain main=new SearchMain();
+		main.setInsuranceNo("66220055566944");
+		node.setMain(main);
+		XmlDeclarationXStream st=new XmlDeclarationXStream();
+		st.processAnnotations(SearchNode.class);
+		String xml = "xml="+st.toXML(node);
 		System.out.println(xml);
 		//180.76.98.239
 		String result="";
+		ApplyResponse respnese=null;
 		try {
 			result=Transponder.sendPost(url, xml, true);
+			st.processAnnotations(ApplyResponse.class);//启用注解
+			respnese = (ApplyResponse)st.fromXML(result);
+			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
+			logger.debug("保单获取成功,本次查询保单号:"+respnese.getMain().getInsurances().get(0).getInsuranceNo());
 		} catch (Exception e) {
 			logger.error("----------------获取保单详情接口调用异常---------------------------");
 			e.printStackTrace();
@@ -159,41 +166,44 @@ public class PolicyController {
 	 * @date 2018年6月25日
 	 */
 	@GetMapping("/surrenderPolicy")
-	public String surrenderPolicy( Long id) {
-		String url="http://180.76.98.239:8888/test3";
-		PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
-		Date now=new Date();
-		List<String> list=new ArrayList<>();
+	public RestAPIResult surrenderPolicy( Long id) {
+		String url="http://180.76.98.239:8888/surrender";
+		RestAPIResult r=new RestAPIResult();
+		r.setRespCode(0);
+		r.setRespMsg("成功");
+		//PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
+		Calendar rightNow = Calendar.getInstance();
+		List<Insurances> list=new ArrayList<>();
 		TransData trans=new  TransData();
-		PolicySet policy1=new PolicySet();
-		
-		list.add("1111111");
-		list.add("2222222");
-		list.add("3333333");
-		policy1.setInsuranceNo(list);
-		trans.setInsurances(policy1);
-		trans.setTransDate(dateFormat.format(now));
-		trans.setTransTime(timeFormat.format(now));
-		trans.setSellFormType(policyInfo.getSellFormType());
-		trans.setTransID(policyInfo.getTransId());
+		Insurances insurances=new Insurances();
+		insurances.setInsuranceNo("66220055566944");//保单号为空时 ,原流水号下的所有保单全部退保
+		trans.setInsurances(list);
+		trans.setTransDate(dateFormat.format(rightNow.getTime()));
+		trans.setTransTime(timeFormat.format(rightNow.getTime()));
+		trans.setSellFormType("UN079");
+		trans.setTransID("1014111806271506443");//投保流水号
 		SurrenderParamsBean surrenderParams=new SurrenderParamsBean();
 		surrenderParams.setTransData(trans);
 		XmlDeclarationXStream st=new XmlDeclarationXStream();
-		st.alias("CancelRequest", SurrenderParamsBean.class);
-		st.alias("TransData", TransData.class);
-		st.alias("Insurances", PolicySet.class);
-		String xml=st.toXML(surrenderParams);
+		st.processAnnotations(SurrenderParamsBean.class);
+		String xml="xml="+st.toXML(surrenderParams);
 		 //调用toXML 将对象转成字符串
 		System.out.println(xml);
 		String result="";
 		try {
 			result=Transponder.sendPost(url, xml, true);
+			st.processAnnotations(SurremderRespones.class);
+			SurremderRespones respnese= (SurremderRespones)st.fromXML(result);
+			System.out.println("**********************"+respnese.getTransData().getResultMsg());
+			logger.debug("接口调取成功,本次退保单号:"+respnese.getTransData().getTransID());
 		} catch (Exception e) {
-			logger.error("----------------获取保单详情接口调用异常---------------------------");
+			logger.error("----------------退保接口调用异常---------------------------");
+			r.setDataCode("1");
+			//r.setRespMsg(respnese.getTransData().getResultMsg());
 			e.printStackTrace();
 		}
 		
-		return result;
+		return r;
 	}
 	
 	@RequestMapping("policyList")

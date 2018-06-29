@@ -3,7 +3,7 @@ package com.palmble.qd_manager.bean;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("ApplyResponse")
-public class SearchNode extends Node{
+public class SearchNode {
 	@XStreamAlias("Main")
 	private SearchMain Main;
 
