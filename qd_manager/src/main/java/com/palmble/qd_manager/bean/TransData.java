@@ -1,5 +1,6 @@
 package com.palmble.qd_manager.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.palmble.qd_manager.resultBean.Insurances;
@@ -14,8 +15,7 @@ public class TransData{
 	@XStreamAlias("SellFormType")
 	private String SellFormType;
 	
-	@XStreamAlias("Insurances")
-	private List<Insurances> insurances;
+	private List<Insurances> insurances=new ArrayList<Insurances>();
 	
 	@XStreamAlias("TransDate")
 	private String TransDate;

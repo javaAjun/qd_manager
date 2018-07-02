@@ -104,6 +104,7 @@ public class PolicyController {
 			String result=Transponder.sendPost(url, xml, true);
 			st.processAnnotations(ApplyResponse.class);//启用注解
 			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
+			System.out.println(result);
 			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
 			System.out.println("**********************"+respnese.getMain().getInsurances().get(0).getInsuranceNo());
 			if(respnese.getResultStatus().getResultCode().equals("00")) {//投保成功,保存保单信息
@@ -136,7 +137,7 @@ public class PolicyController {
 		//PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
 		SearchNode node=new SearchNode();
 		SearchMain main=new SearchMain();
-		main.setInsuranceNo("66220055566944");
+		main.setInsuranceNo("66220055567065");
 		node.setMain(main);
 		XmlDeclarationXStream st=new XmlDeclarationXStream();
 		st.processAnnotations(SearchNode.class);
@@ -176,12 +177,13 @@ public class PolicyController {
 		List<Insurances> list=new ArrayList<>();
 		TransData trans=new  TransData();
 		Insurances insurances=new Insurances();
-		insurances.setInsuranceNo("66220055566944");//保单号为空时 ,原流水号下的所有保单全部退保
+		insurances.setInsuranceNo("66220055567065");//保单号为空时 ,原流水号下的所有保单全部退保
+		list.add(insurances);
 		trans.setInsurances(list);
 		trans.setTransDate(dateFormat.format(rightNow.getTime()));
-		trans.setTransTime(timeFormat.format(rightNow.getTime()));
+		trans.setTransTime("160000");
 		trans.setSellFormType("UN079");
-		trans.setTransID("1014111806271506443");//投保流水号
+		trans.setTransID("8218071807021507101");//投保流水号
 		SurrenderParamsBean surrenderParams=new SurrenderParamsBean();
 		surrenderParams.setTransData(trans);
 		XmlDeclarationXStream st=new XmlDeclarationXStream();
@@ -196,6 +198,7 @@ public class PolicyController {
 			SurremderRespones respnese= (SurremderRespones)st.fromXML(result);
 			System.out.println("**********************"+respnese.getTransData().getResultMsg());
 			logger.debug("接口调取成功,本次退保单号:"+respnese.getTransData().getTransID());
+			System.out.println(result);
 		} catch (Exception e) {
 			logger.error("----------------退保接口调用异常---------------------------");
 			r.setDataCode("1");
