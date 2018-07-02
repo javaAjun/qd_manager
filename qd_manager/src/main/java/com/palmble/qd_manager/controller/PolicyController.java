@@ -1,13 +1,9 @@
 package com.palmble.qd_manager.controller;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,8 +34,6 @@ import com.palmble.qd_manager.resultBean.SurremderRespones;
 import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
 import com.palmble.qd_manager.utils.XmlDeclarationXStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-//import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 
 @RestController
 public class PolicyController {
@@ -105,7 +99,6 @@ public class PolicyController {
 		//String url=(String)map.get("url");
 		String  url="http://180.76.98.239:8888/test1";
 		try {
-			//182.92.99.67
 			String result=Transponder.sendPost(url, xml, true);
 			st.processAnnotations(ApplyResponse.class);//启用注解
 			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
