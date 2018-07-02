@@ -36,12 +36,50 @@ public class Main {
 	@XStreamAlias("Premium")
 	private Double Premium;
 	
+	@XStreamAlias("TransDate")
+	private String TransDate;
+	
+	@XStreamAlias("TicketNo")
+	private String TicketNo;
+	
+	@XStreamAlias("ApplicantPhone")
+	private String ApplicantPhone;
+	
+	@XStreamAlias("ApplicantAddress")
+	private String ApplicantAddress;
+	
 	@XStreamAlias("TotalPremium")
 	private Double TotalPremium;
 	
 	@XStreamAlias("RelationBen")
 	private String RelationBen;
 	
+	
+	
+	public String getTransDate() {
+		return TransDate;
+	}
+	public void setTransDate(String transDate) {
+		TransDate = transDate;
+	}
+	public String getTicketNo() {
+		return TicketNo;
+	}
+	public void setTicketNo(String ticketNo) {
+		TicketNo = ticketNo;
+	}
+	public String getApplicantPhone() {
+		return ApplicantPhone;
+	}
+	public void setApplicantPhone(String applicantPhone) {
+		ApplicantPhone = applicantPhone;
+	}
+	public String getApplicantAddress() {
+		return ApplicantAddress;
+	}
+	public void setApplicantAddress(String applicantAddress) {
+		ApplicantAddress = applicantAddress;
+	}
 	public Double getTotalPremium() {
 		return TotalPremium;
 	}

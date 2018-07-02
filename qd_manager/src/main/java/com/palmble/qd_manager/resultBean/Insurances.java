@@ -13,8 +13,17 @@ public class Insurances {
 	@XStreamAlias("IdentifyCode")
 	private String IdentifyCode;
 	
+	@XStreamAlias("IsImport")
+	private String IsImport;
 
-
+	
+	
+	public String getIsImport() {
+		return IsImport;
+	}
+	public void setIsImport(String isImport) {
+		IsImport = isImport;
+	}
 	public String getInsuranceNo() {
 		return InsuranceNo;
 	}
