@@ -34,8 +34,9 @@ public class Beneficiary {
 	public void setBeneficiaryNum(String beneficiaryNum) {
 		BeneficiaryNum = beneficiaryNum;
 	}
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Beneficiary [beneficiaryName=" + beneficiaryName + ", BeneficiaryType=" + BeneficiaryType
+				+ ", BeneficiaryNum=" + BeneficiaryNum + "]";
+	}
 }

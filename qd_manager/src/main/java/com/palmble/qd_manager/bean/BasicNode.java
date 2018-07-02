@@ -3,7 +3,7 @@ package com.palmble.qd_manager.bean;
 public class BasicNode {
 	private String TransID;//交易流水号
 	private String OrderID;//订单号
-	private String TransType;//交易类型
+	private Integer TransType;//交易类型
 	private String TransDate;//出保日期YYYYMMDD
 	private String TransTime;//出保时间HHMMSS
 	private String PosCode;//POS机编号
@@ -52,10 +52,10 @@ public class BasicNode {
 	public void setOrderID(String orderID) {
 		OrderID = orderID;
 	}
-	public String getTransType() {
+	public Integer getTransType() {
 		return TransType;
 	}
-	public void setTransType(String transType) {
+	public void setTransType(Integer transType) {
 		TransType = transType;
 	}
 	public String getTransDate() {

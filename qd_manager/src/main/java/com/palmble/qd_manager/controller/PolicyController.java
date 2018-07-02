@@ -29,12 +29,11 @@ import com.palmble.qd_manager.bean.TransData;
 import com.palmble.qd_manager.model.PolicyInfo;
 import com.palmble.qd_manager.resultBean.ApplyResponse;
 import com.palmble.qd_manager.resultBean.Insurances;
+import com.palmble.qd_manager.resultBean.Main;
 import com.palmble.qd_manager.resultBean.SurremderRespones;
 import com.palmble.qd_manager.service.PolicyService;
 import com.palmble.qd_manager.utils.RandomTranUtil;
 import com.palmble.qd_manager.utils.XmlDeclarationXStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-//import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 
 @RestController
 public class PolicyController {
@@ -43,7 +42,6 @@ public class PolicyController {
 	protected Logger logger = LoggerFactory.getLogger(PolicyController.class);
 	@Autowired
 	private PolicyService policyService;
-	
 	private SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
 	private SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 	@RequestMapping("/savePolicy")
@@ -51,8 +49,6 @@ public class PolicyController {
 			InsuredNode insured,BeneficiaryNode beneficiary,BasicNode basic
 			,ApplicantNode applicant,@RequestParam Map<String,Object> map) {
 		RestAPIResult r=new RestAPIResult();
-		r.setRespCode(0);
-		r.setRespMsg("成功");
 		basic.setTransID(RandomTranUtil.getTrandNo());
 		Date now=new Date();
 		basic.setTransDate(dateFormat.format(now));
@@ -69,11 +65,11 @@ public class PolicyController {
 		/**
 		 * 测试数据,被保人信息
 		 */
-		insured.setInsuredName("王彦克");
-		insured.setInsuredNum("41032519900611107X");
-		insured.setInsuredSex("0");
-		insured.setInsuredType("0");
-		insured.setInsuredBirthDate("19900611");
+//		insured.setInsuredName("王彦克");
+//		insured.setInsuredNum("41032519900611107X");
+//		insured.setInsuredSex(0);
+//		insured.setInsuredType("0");
+//		insured.setInsuredBirthDate("19900611");
 		rightNow.add(Calendar.DAY_OF_YEAR,3);
 		basic.setEffectDate(dateFormat.format(rightNow.getTime()));
 		basic.setEffectTime(timeFormat.format(rightNow.getTime()));
@@ -100,20 +96,19 @@ public class PolicyController {
 		//String url=(String)map.get("url");
 		String  url="http://180.76.98.239:8888/test1";
 		try {
-			//180.76.98.239
 			String result=Transponder.sendPost(url, xml, true);
 			st.processAnnotations(ApplyResponse.class);//启用注解
 			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
 			System.out.println(result);
+
+			System.out.println(respnese.toString());
+
 			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
-			System.out.println("**********************"+respnese.getMain().getInsurances().get(0).getInsuranceNo());
 			if(respnese.getResultStatus().getResultCode().equals("00")) {//投保成功,保存保单信息
-				PolicyInfo policyInfo=new PolicyInfo();
-				
-				
-				
-				
-				
+				//保存保单方法
+				save(s,respnese);
+				r.setRespCode(0);
+				r.setRespMsg(respnese.getResultStatus().getResultMsg());
 			}else {//投保失败
 				r.setDataCode("1");
 				r.setRespMsg(respnese.getResultStatus().getResultMsg());
@@ -211,8 +206,72 @@ public class PolicyController {
 	
 	@RequestMapping("policyList")
 	public List<PolicyInfo> getAllPolicy() {
-		return policyService.getAllPolict();
+		return policyService.getAllPolicy();
 	}
-	
+	public void save(SaveParamsBean s,ApplyResponse respnese) {
+		//保存保单方法
+		BasicNode basic=s.getMain();
+		List<Insurances> list=respnese.getMain().getInsurances();
+		Main resMain=respnese.getMain();
+		for(Insurances insurances:list) {
+			PolicyInfo policyInfo=new PolicyInfo();
+			policyInfo.setTransId(basic.getTransID());
+			policyInfo.setTransDate(basic.getTransDate());
+			policyInfo.setTransTime(basic.getTransTime());
+			policyInfo.setTransType(basic.getTransType());
+			policyInfo.setSourceId(basic.getSourceID());
+			policyInfo.setOrderId(basic.getOrderID());
+			policyInfo.setPosCode(basic.getPosCode());
+			policyInfo.setSellFormType(basic.getSellFormType());
+			policyInfo.setProductCode(basic.getProductCode());
+			policyInfo.setInsuranceNo(insurances.getInsuranceNo());
+			policyInfo.setEffectDate(resMain.getEffectDate());
+			policyInfo.setEffectTime(basic.getEffectTime());
+			policyInfo.setExpiryDate(resMain.getExpiryDate());
+			policyInfo.setExpiryTime(basic.getExpiryTime());
+			String amountStr=resMain.getAmount();
+			Double amountNum=null;
+			if(amountStr!=null&&!amountStr.trim().equals("")) {
+				amountNum=Double.parseDouble(amountStr);
+			}
+			policyInfo.setAmount(amountNum);
+			String premiumStr=resMain.getPremium();
+			Double premiumNum=null;
+			if(premiumStr!=null&&!premiumStr.trim().equals("")) {
+				premiumNum=Double.parseDouble(premiumStr);
+			}
+			policyInfo.setPremium(premiumNum);
+			String totalPermiumStr=resMain.getTotalPremium();
+			Double totalPermiumNum=null;
+			if(totalPermiumStr!=null&&!totalPermiumStr.trim().equals("")) {
+				totalPermiumNum=Double.parseDouble(totalPermiumStr);
+			}
+			policyInfo.setTotalPremium(totalPermiumNum);
+			policyInfo.setNeedSms(basic.getNeedSMS());
+			policyInfo.setTicketNo(basic.getTicketNo());
+			policyInfo.setDepartureCity(basic.getDepartureCity());
+			policyInfo.setDepartureDate(basic.getDepartureDate());
+			policyInfo.setDepartureTime(basic.getDepartureTime());
+			policyInfo.setArrivalCity(basic.getArrivalCity());
+			policyInfo.setArrivalDate(basic.getArrivalDate());
+			policyInfo.setArrivalTime(basic.getArrivalTime());
+			policyInfo.setRelationApp(basic.getRelationApp());
+			policyInfo.setRelationBen(basic.getRelationBen());
+			//
+			policyInfo.setApplicantName(basic.getAccName());
+			policyInfo.setApplicantType(s.getApplicant().getApplicantType());
+			policyInfo.setApplicantNum(s.getApplicant().getApplicantNum());
+			policyInfo.setApplicantSex(s.getApplicant().getApplicantSex());
+			policyInfo.setAppBirthDate(s.getApplicant().getApplicantBirthDate());
+			policyInfo.setApplicantAddress(s.getApplicant().getApplicantAddress());
+			policyInfo.setApplicantPhone(s.getApplicant().getApplicantPhone());
+			policyInfo.setInsuredName(s.getInsured().getInsuredName());
+			policyInfo.setInsuredType(s.getInsured().getInsuredType());
+			policyInfo.setInsuredNum(s.getInsured().getInsuredNum());
+			policyInfo.setInsuredSex(s.getInsured().getInsuredSex());
+			policyInfo.setInsuredBirthDate(respnese.getInsured().getInsuredBirthDate());
+			policyService.insertSelective(policyInfo);
+		}
+	}
 	
 }

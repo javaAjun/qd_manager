@@ -146,5 +146,12 @@ public class Main {
 	public void setAmount(String amount) {
 		Amount = amount;
 	}
+	@Override
+	public String toString() {
+		return "Main [insurances=" + insurances + ", TransID=" + TransID + ", EffectDate=" + EffectDate
+				+ ", ExpiryDate=" + ExpiryDate + ", EpolicyInfo=" + EpolicyInfo + ", PlanCode=" + PlanCode + ", Amount="
+				+ Amount + ", RelationApp=" + RelationApp + ", Premium=" + Premium + ", TotalPremium=" + TotalPremium
+				+ ", RelationBen=" + RelationBen + "]";
+	}
 	
 }

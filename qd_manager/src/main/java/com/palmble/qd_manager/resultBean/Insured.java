@@ -48,5 +48,10 @@ public class Insured {
 	public void setInsuredBirthDate(String insuredBirthDate) {
 		InsuredBirthDate = insuredBirthDate;
 	}
+	@Override
+	public String toString() {
+		return "Insured [InsuredName=" + InsuredName + ", InsuredType=" + InsuredType + ", InsuredNum=" + InsuredNum
+				+ ", InsuredSex=" + InsuredSex + ", InsuredBirthDate=" + InsuredBirthDate + "]";
+	}
 	
 }

@@ -19,8 +19,34 @@ public class PolicyServiceImpl implements PolicyService {
 		return policyInfoMapper.selectByPrimaryKey(id);
 	}
 
+
 	@Override
-	public List<PolicyInfo> getAllPolict() {
+	public int deleteByPrimaryKey(Long id) {
+		return policyInfoMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int insert(PolicyInfo record) {
+		return policyInfoMapper.insert(record);
+	}
+
+	@Override
+	public int insertSelective(PolicyInfo record) {
+		return policyInfoMapper.insertSelective(record);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(PolicyInfo record) {
+		return policyInfoMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public int updateByPrimaryKey(PolicyInfo record) {
+		return policyInfoMapper.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public List<PolicyInfo> getAllPolicy() {
 		return policyInfoMapper.getAllPolicy();
 	}
 }

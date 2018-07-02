@@ -21,5 +21,10 @@ public class ResultStatus {
 	public void setResultMsg(String resultMsg) {
 		ResultMsg = resultMsg;
 	}
+	@Override
+	public String toString() {
+		return "ResultStatus [ResultCode=" + ResultCode + ", ResultMsg=" + ResultMsg + "]";
+	}
+	
 	
 }

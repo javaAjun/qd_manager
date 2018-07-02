@@ -1,13 +1,13 @@
 package com.palmble.qd_manager.resultBean;
 
 
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 
 //新华接口返回xml用dom4j转化为该的对象
 @XStreamAlias("ApplyResponse")
 public class ApplyResponse {
-	
 	@XStreamAlias("ResultStatus")
 	private ResultStatus resultStatus;
 	
@@ -55,5 +55,11 @@ public class ApplyResponse {
 	public void setBeneficiary(Beneficiary beneficiary) {
 		this.beneficiary = beneficiary;
 	}
+	@Override
+	public String toString() {
+		return "ApplyResponse [resultStatus=" + resultStatus + ", main=" + main + ", insured=" + insured
+				+ ", applicant=" + applicant + ", beneficiary=" + beneficiary + "]";
+	}
+	
 	
 }
