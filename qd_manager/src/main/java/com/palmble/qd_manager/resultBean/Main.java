@@ -28,13 +28,13 @@ public class Main {
 	private String PlanCode;
 	
 	@XStreamAlias("Amount")
-	private Double Amount;
+	private String Amount;
 	
 	@XStreamAlias("RelationApp")
 	private String RelationApp;
 	
 	@XStreamAlias("Premium")
-	private Double Premium;
+	private String Premium;
 	
 	@XStreamAlias("TransDate")
 	private String TransDate;
@@ -49,7 +49,7 @@ public class Main {
 	private String ApplicantAddress;
 	
 	@XStreamAlias("TotalPremium")
-	private Double TotalPremium;
+	private String TotalPremium;
 	
 	@XStreamAlias("RelationBen")
 	private String RelationBen;
@@ -80,10 +80,10 @@ public class Main {
 	public void setApplicantAddress(String applicantAddress) {
 		ApplicantAddress = applicantAddress;
 	}
-	public Double getTotalPremium() {
+	public String getTotalPremium() {
 		return TotalPremium;
 	}
-	public void setTotalPremium(Double totalPremium) {
+	public void setTotalPremium(String totalPremium) {
 		TotalPremium = totalPremium;
 	}
 	public String getRelationBen() {
@@ -98,10 +98,10 @@ public class Main {
 	public void setRelationApp(String relationApp) {
 		RelationApp = relationApp;
 	}
-	public Double getPremium() {
+	public String getPremium() {
 		return Premium;
 	}
-	public void setPremium(Double premium) {
+	public void setPremium(String premium) {
 		Premium = premium;
 	}
 	public List<Insurances> getInsurances() {
@@ -140,10 +140,10 @@ public class Main {
 	public void setPlanCode(String planCode) {
 		PlanCode = planCode;
 	}
-	public Double getAmount() {
+	public String getAmount() {
 		return Amount;
 	}
-	public void setAmount(Double amount) {
+	public void setAmount(String amount) {
 		Amount = amount;
 	}
 	@Override

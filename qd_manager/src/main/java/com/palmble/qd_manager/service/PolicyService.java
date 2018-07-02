@@ -6,6 +6,14 @@ import com.palmble.qd_manager.model.PolicyInfo;
 
 public interface PolicyService {
 	PolicyInfo selectByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Long id);
 
-	List<PolicyInfo> getAllPolict();
+    int insert(PolicyInfo record);
+
+    int insertSelective(PolicyInfo record);
+
+    int updateByPrimaryKeySelective(PolicyInfo record);
+
+    int updateByPrimaryKey(PolicyInfo record);
+	List<PolicyInfo> getAllPolicy();
 }

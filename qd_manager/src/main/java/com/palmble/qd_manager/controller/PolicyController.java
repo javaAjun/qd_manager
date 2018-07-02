@@ -42,7 +42,6 @@ public class PolicyController {
 	protected Logger logger = LoggerFactory.getLogger(PolicyController.class);
 	@Autowired
 	private PolicyService policyService;
-	
 	private SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
 	private SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 	@RequestMapping("/savePolicy")
@@ -50,8 +49,6 @@ public class PolicyController {
 			InsuredNode insured,BeneficiaryNode beneficiary,BasicNode basic
 			,ApplicantNode applicant,@RequestParam Map<String,Object> map) {
 		RestAPIResult r=new RestAPIResult();
-		r.setRespCode(0);
-		r.setRespMsg("成功");
 		basic.setTransID(RandomTranUtil.getTrandNo());
 		Date now=new Date();
 		basic.setTransDate(dateFormat.format(now));
@@ -68,11 +65,11 @@ public class PolicyController {
 		/**
 		 * 测试数据,被保人信息
 		 */
-		insured.setInsuredName("王彦克");
-		insured.setInsuredNum("41032519900611107X");
-		insured.setInsuredSex(0);
-		insured.setInsuredType("0");
-		insured.setInsuredBirthDate("19900611");
+//		insured.setInsuredName("王彦克");
+//		insured.setInsuredNum("41032519900611107X");
+//		insured.setInsuredSex(0);
+//		insured.setInsuredType("0");
+//		insured.setInsuredBirthDate("19900611");
 		rightNow.add(Calendar.DAY_OF_YEAR,3);
 		basic.setEffectDate(dateFormat.format(rightNow.getTime()));
 		basic.setEffectTime(timeFormat.format(rightNow.getTime()));
@@ -104,8 +101,11 @@ public class PolicyController {
 			ApplyResponse respnese = (ApplyResponse)st.fromXML(result);
 			System.out.println(respnese.toString());
 			System.out.println("**********************"+respnese.getResultStatus().getResultMsg());
-			save(s,respnese);
 			if(respnese.getResultStatus().getResultCode().equals("00")) {//投保成功,保存保单信息
+				//保存保单方法
+				save(s,respnese);
+				r.setRespCode(0);
+				r.setRespMsg(respnese.getResultStatus().getResultMsg());
 			}else {//投保失败
 				r.setDataCode("1");
 				r.setRespMsg(respnese.getResultStatus().getResultMsg());
@@ -201,9 +201,10 @@ public class PolicyController {
 	
 	@RequestMapping("policyList")
 	public List<PolicyInfo> getAllPolicy() {
-		return policyService.getAllPolict();
+		return policyService.getAllPolicy();
 	}
 	public void save(SaveParamsBean s,ApplyResponse respnese) {
+		//保存保单方法
 		BasicNode basic=s.getMain();
 		List<Insurances> list=respnese.getMain().getInsurances();
 		Main resMain=respnese.getMain();
@@ -223,9 +224,24 @@ public class PolicyController {
 			policyInfo.setEffectTime(basic.getEffectTime());
 			policyInfo.setExpiryDate(resMain.getExpiryDate());
 			policyInfo.setExpiryTime(basic.getExpiryTime());
-			policyInfo.setAmount(resMain.getAmount());
-			policyInfo.setPremium(resMain.getPremium());
-			policyInfo.setTotalPremium(resMain.getTotalPremium());
+			String amountStr=resMain.getAmount();
+			Double amountNum=null;
+			if(amountStr!=null&&!amountStr.trim().equals("")) {
+				amountNum=Double.parseDouble(amountStr);
+			}
+			policyInfo.setAmount(amountNum);
+			String premiumStr=resMain.getPremium();
+			Double premiumNum=null;
+			if(premiumStr!=null&&!premiumStr.trim().equals("")) {
+				premiumNum=Double.parseDouble(premiumStr);
+			}
+			policyInfo.setPremium(premiumNum);
+			String totalPermiumStr=resMain.getTotalPremium();
+			Double totalPermiumNum=null;
+			if(totalPermiumStr!=null&&!totalPermiumStr.trim().equals("")) {
+				totalPermiumNum=Double.parseDouble(totalPermiumStr);
+			}
+			policyInfo.setTotalPremium(totalPermiumNum);
 			policyInfo.setNeedSms(basic.getNeedSMS());
 			policyInfo.setTicketNo(basic.getTicketNo());
 			policyInfo.setDepartureCity(basic.getDepartureCity());
@@ -249,6 +265,7 @@ public class PolicyController {
 			policyInfo.setInsuredNum(s.getInsured().getInsuredNum());
 			policyInfo.setInsuredSex(s.getInsured().getInsuredSex());
 			policyInfo.setInsuredBirthDate(respnese.getInsured().getInsuredBirthDate());
+			policyService.insertSelective(policyInfo);
 		}
 	}
 	
