@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  */
 @XStreamAlias("CancelRequest")
 public class SurrenderParamsBean {
-	@XStreamAlias("Main")
+	@XStreamAlias("TransData")
 	private TransData TransData;
 	
 	@XStreamAlias("TransSignature")

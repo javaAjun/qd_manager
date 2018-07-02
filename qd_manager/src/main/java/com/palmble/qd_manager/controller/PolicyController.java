@@ -129,10 +129,12 @@ public class PolicyController {
 	@GetMapping("/searchPolicy")
 	public String searchPolicy(@RequestParam Long id) {
 		String url="http://180.76.98.239:8888/test2";
-		//PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
+		PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
 		SearchNode node=new SearchNode();
 		SearchMain main=new SearchMain();
-		main.setInsuranceNo("66220055567065");
+		if(policyInfo!=null) {
+			main.setInsuranceNo(policyInfo.getInsuranceNo());
+		}
 		node.setMain(main);
 		XmlDeclarationXStream st=new XmlDeclarationXStream();
 		st.processAnnotations(SearchNode.class);
@@ -167,22 +169,28 @@ public class PolicyController {
 		RestAPIResult r=new RestAPIResult();
 		r.setRespCode(0);
 		r.setRespMsg("成功");
-		//PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
+		PolicyInfo policyInfo = policyService.selectByPrimaryKey(id);//获取保单内容信息
+		if(policyInfo==null) {
+			r.setRespCode(1);
+			r.setRespMsg("获取保单号失败");
+			return r;
+		}
 		Calendar rightNow = Calendar.getInstance();
 		List<Insurances> list=new ArrayList<>();
 		TransData trans=new  TransData();
 		Insurances insurances=new Insurances();
-		insurances.setInsuranceNo("66220055567065");//保单号为空时 ,原流水号下的所有保单全部退保
+		insurances.setInsuranceNo(policyInfo.getInsuranceNo());//保单号为空时 ,原流水号下的所有保单全部退保
 		list.add(insurances);
 		trans.setInsurances(list);
 		trans.setTransDate(dateFormat.format(rightNow.getTime()));
-		trans.setTransTime("160000");
-		trans.setSellFormType("UN079");
-		trans.setTransID("8218071807021507101");//投保流水号
+		trans.setTransTime(timeFormat.format(rightNow.getTime()));
+		trans.setSellFormType(policyInfo.getSellFormType());
+		trans.setTransID(policyInfo.getTransId());//投保流水号
 		SurrenderParamsBean surrenderParams=new SurrenderParamsBean();
 		surrenderParams.setTransData(trans);
 		XmlDeclarationXStream st=new XmlDeclarationXStream();
 		st.processAnnotations(SurrenderParamsBean.class);
+		//st.alias("", Insurances.class);
 		String xml="xml="+st.toXML(surrenderParams);
 		 //调用toXML 将对象转成字符串
 		System.out.println(xml);
