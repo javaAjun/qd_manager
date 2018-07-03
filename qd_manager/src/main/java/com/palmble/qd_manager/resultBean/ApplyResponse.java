@@ -1,7 +1,6 @@
 package com.palmble.qd_manager.resultBean;
 
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import com.palmble.qd_manager.resultBean.Insurances;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias("Main")
+@XStreamAlias("TransData")
 public class TransData{
 	
 	@XStreamAlias("TransID")
@@ -14,7 +14,7 @@ public class TransData{
 	@XStreamAlias("SellFormType")
 	private String SellFormType;
 	
-	@XStreamAlias("Insurances")
+	@XStreamAlias("insurances")
 	private List<Insurances> insurances;
 	
 	@XStreamAlias("TransDate")
