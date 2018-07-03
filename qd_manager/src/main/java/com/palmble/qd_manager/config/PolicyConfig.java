@@ -11,10 +11,12 @@ import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 @EnableWs
 public class PolicyConfig {
 
-	/*@Bean
+	@Bean
 	 public StandardPolicyPortType initPolicy() {
-		StandardPolicy standardPolicy=new StandardPolicy();
-		StandardPolicyPortType standardPolicyPortType=standardPolicy.getPort(StandardPolicyPortType.class);
-		return standardPolicyPortType;
-	}*/
+//		StandardPolicy standardPolicy=new StandardPolicy();
+//		StandardPolicyPortType standardPolicyPortType=standardPolicy.getPort(StandardPolicyPortType.class);
+//		return standardPolicyPortType;
+		//如果部署到服务器,修改此项
+		return null;
+	}
 }

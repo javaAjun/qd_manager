@@ -9,7 +9,6 @@ import com.palmble.qd_manager.bean.ApplicantNode;
 import com.palmble.qd_manager.bean.BasicNode;
 import com.palmble.qd_manager.bean.SaveParamsBean;
 import com.palmble.qd_manager.utils.ValidateUtil;
-import com.palmble.qd_manager.utils.XmlUtil;
 
 public class Test1 {
 
@@ -25,9 +24,8 @@ public class Test1 {
 		applicantNode.setApplicantAddress("address");
 		a.setMain(b);
 		a.setApplicant(applicantNode);
-		System.out.println(ValidateUtil.CardNoValidate("411323199507050576"));//验证身份证
+		System.out.println(ValidateUtil.CardNoValidate(""));//验证身份证
 		System.out.println(ValidateUtil.validateBirthdayOrCardNo("19900611","41032519900611107X"));//验证生日与身份证生日是否相同
-		System.out.println(XmlUtil.getXmlString(a));
 		System.out.println();
 	}
 

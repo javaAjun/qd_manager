@@ -46,11 +46,11 @@
 		<!-- <artifactId>wsdl4j</artifactId> -->
 		<!-- </dependency> -->
 
-		<dependency>
-			<groupId>dom4j</groupId>
+<!-- 		<dependency> -->
+<!-- 			<groupId>dom4j</groupId> -->
 
-			<artifactId>dom4j</artifactId>
-		</dependency>
+<!-- 			<artifactId>dom4j</artifactId> -->
+<!-- 		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/xstream/xstream -->
 
 		<dependency>
