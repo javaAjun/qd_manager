@@ -24,7 +24,7 @@ public interface PolicyService {
     int updateByPrimaryKeySelective(PolicyInfo record);
 
     int updateByPrimaryKey(PolicyInfo record);
-	List<PolicyInfo> getAllPolicy();
+	List<PolicyInfo> getByUserId(Long userId);
 	
 	ApplyResponse sendPolicyInfo(SaveParamsBean s);
 	public void save(SaveParamsBean s,ApplyResponse respnese);

@@ -161,9 +161,9 @@ public class PolicyController {
 		return r;
 	}
 	
-	@RequestMapping("policyList")
-	public List<PolicyInfo> getAllPolicy() {
-		return policyService.getAllPolicy();
+	@RequestMapping("/policyList")
+	public List<PolicyInfo> getAllPolicy(Long userId) {
+		return policyService.getByUserId(userId);
 	}
 	
 	
