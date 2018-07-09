@@ -1,6 +1,7 @@
 package com.palmble.qd_manager;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
@@ -39,4 +40,19 @@ public class Test1 {
 			System.out.println(orderNo);
 			return; 
 			}
+	public static void main(String[] args) {
+		SimpleDateFormat daf=new SimpleDateFormat("YYYYMMdd");
+		String projectNo="P"+daf.format(new Date())+"009";
+		System.out.println(projectNo.substring(9, 12));
+		int num = Integer.parseInt(projectNo.substring(9, 12));
+		num++;
+		System.out.println(num);
+		if(num<10) {
+			projectNo="P"+daf.format(new Date())+"00"+num;
+		}else if (num<100) {
+			projectNo="P"+daf.format(new Date())+"0"+num;
+		}
+		System.out.println(String.valueOf(projectNo));
+	}
+	
 }
