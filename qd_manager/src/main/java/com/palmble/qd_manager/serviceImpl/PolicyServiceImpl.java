@@ -3,6 +3,7 @@ package com.palmble.qd_manager.serviceImpl;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import com.palmble.qd_manager.bean.BasicNode;
 import com.palmble.qd_manager.bean.BeneficiaryNode;
 import com.palmble.qd_manager.bean.InsuredNode;
 import com.palmble.qd_manager.bean.SaveParamsBean;
-import com.palmble.qd_manager.dal.PolicyInfoMapper;
+import com.palmble.qd_manager.dal.PolicyInfoDao;
 import com.palmble.qd_manager.model.PolicyInfo;
 import com.palmble.qd_manager.resultBean.ApplyResponse;
 import com.palmble.qd_manager.resultBean.Insurances;
@@ -30,42 +31,44 @@ import com.palmble.qd_manager.xhpos.StandardPolicyPortType;
 public class PolicyServiceImpl implements PolicyService {
 	
 	@Autowired
-	private PolicyInfoMapper policyInfoMapper;
+	private PolicyInfoDao policyInfoDao;
 	private SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
 	private SimpleDateFormat timeFormat=new SimpleDateFormat("HHMMss");
 	public PolicyInfo selectByPrimaryKey(Long id) {
-		return policyInfoMapper.selectByPrimaryKey(id);
+		return policyInfoDao.getById(id);
 	}
 
 
 	@Override
 	public int deleteByPrimaryKey(Long id) {
-		return policyInfoMapper.deleteByPrimaryKey(id);
+		return policyInfoDao.deleteById(id);
 	}
 
 	@Override
 	public int insert(PolicyInfo record) {
-		return policyInfoMapper.insert(record);
+		return policyInfoDao.insertFully(record);
 	}
 
 	@Override
 	public int insertSelective(PolicyInfo record) {
-		return policyInfoMapper.insertSelective(record);
+		return policyInfoDao.insert(record);
 	}
 
 	@Override
 	public int updateByPrimaryKeySelective(PolicyInfo record) {
-		return policyInfoMapper.updateByPrimaryKey(record);
+		return policyInfoDao.updateById(record);
 	}
 
 	@Override
 	public int updateByPrimaryKey(PolicyInfo record) {
-		return policyInfoMapper.updateByPrimaryKey(record);
+		return policyInfoDao.updateFullyById(record);
 	}
 
 	@Override
-	public List<PolicyInfo> getAllPolicy() {
-		return policyInfoMapper.getAllPolicy();
+	public List<PolicyInfo> getByUserId(Long userId) {
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("userId", userId);
+		return policyInfoDao.find(map);
 	}
 	
 	@Autowired

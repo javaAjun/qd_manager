@@ -95,10 +95,24 @@ public class PolicyInfo {
 	private String insuredBirthDate;
 
 	private String transSignaTure;
+	
 	private String createTime;
+	
 	private String updateTime;
+	
 	private Integer policyStatus;
+	
 	private Integer payStatus;
+	
+	private Long userId;
+	
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public String getCreateTime() {
 		return createTime;
